@@ -5,7 +5,7 @@ the usual install locations (see :mod:`pytikz.toolchain`). PDFs are turned
 into PNG/SVG by whichever converter is available:
 
 * PNG: poppler (``pdftocairo``/``pdftoppm``), the ``pypdfium2`` Python package
-  (``pip install "pytikz[png]"``), Ghostscript, MuPDF or ImageMagick.
+  (``pip install "pytikz-diagrams[png]"``), Ghostscript, MuPDF or ImageMagick.
 * SVG: poppler (``pdftocairo``), ``dvisvgm`` (with Ghostscript) or MuPDF.
 
 Results are cached by content hash in ``~/.cache/pytikz`` (override with
@@ -291,7 +291,7 @@ def pdf_to_png(pdf: bytes, *, dpi: int = 300, transparent: bool = False) -> byte
     detail = f" (tried: {'; '.join(errors)})" if errors else ""
     raise ConverterNotFoundError(
         "No working PDF-to-PNG converter was found" + detail + ". The easiest fix is "
-        '`pip install "pytikz[png]"` (installs pypdfium2); poppler, Ghostscript, MuPDF or '
+        '`pip install "pytikz-diagrams[png]"` (installs pypdfium2); poppler, Ghostscript, MuPDF or '
         "ImageMagick also work. " + SETUP_HINT
     )
 

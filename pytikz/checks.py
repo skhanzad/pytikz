@@ -133,7 +133,7 @@ def fix_commands(missing: list[Requirement], *, need_latex: bool, need_png: bool
         elif system == "Windows" and need_latex:
             lines.append("or install MiKTeX:  winget install MiKTeX.MiKTeX   (packages are installed on first use)")
     if need_png and not need_latex:
-        lines.append('pip install "pytikz[png]"     # PNG output via pypdfium2 (or install poppler)')
+        lines.append('pip install "pytikz-diagrams[png]"   # PNG output via pypdfium2 (or install poppler)')
     if need_svg and not need_latex:
         if system == "Linux" and linux_distro() & {"debian", "ubuntu"}:
             lines.append("sudo apt install poppler-utils   # SVG output")

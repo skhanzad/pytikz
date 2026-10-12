@@ -20,6 +20,9 @@ def isolated(tmp_path, monkeypatch):
     monkeypatch.setenv("PYTIKZ_CONFIG", str(tmp_path / "config.json"))
     monkeypatch.setenv("PYTIKZ_CACHE", str(tmp_path / "cache"))  # no cached PDFs: LaTeX must run
     monkeypatch.delenv("PYTIKZ_TEXBIN", raising=False)
+    # A TinyTeX in the default place (CI installs one before the tests) must not leak in.
+    monkeypatch.setattr(toolchain, "tinytex_dir", lambda: tmp_path / "TinyTeX")
+    monkeypatch.setattr(installer, "tinytex_dir", lambda: tmp_path / "TinyTeX")
     toolchain.clear_cache()
     yield
     toolchain.clear_cache()
@@ -80,7 +83,7 @@ def test_png_encoder_round_trip():
 def test_missing_converters_raise_helpful_errors(monkeypatch):
     monkeypatch.setattr(compiler, "_PNG", [])
     monkeypatch.setattr(compiler, "_SVG", [])
-    with pytest.raises(tz.ConverterNotFoundError, match="pytikz\\[png\\]"):
+    with pytest.raises(tz.ConverterNotFoundError, match="pytikz-diagrams\\[png\\]"):
         compiler.pdf_to_png(b"%PDF-1.5")
     with pytest.raises(tz.ConverterNotFoundError, match="pytikz doctor"):
         compiler.pdf_to_svg(b"%PDF-1.5")

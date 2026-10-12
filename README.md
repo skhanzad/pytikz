@@ -5,9 +5,9 @@ TikZ code (and PDF/PNG/SVG) for machine-learning and mathematical diagrams: netw
 architectures, plots, 3D surfaces, graphs, trees, commutative diagrams and geometry.
 
 <p align="center">
-  <img src="examples/output/transformer.png" height="330">
-  <img src="examples/output/loss_landscape.png" height="250">
-  <img src="examples/output/attention.png" height="250">
+  <img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/transformer.png" height="330">
+  <img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/loss_landscape.png" height="250">
+  <img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/attention.png" height="250">
 </p>
 
 * **Everything computed in Python, drawn with plain TikZ.** Layouts, plot transforms,
@@ -26,9 +26,12 @@ architectures, plots, 3D surfaces, graphs, trees, commutative diagrams and geome
 ## Installation
 
 ```bash
-pip install -e ".[png]"     # from this folder; Python 3.9+
-pytikz setup                # finds LaTeX, or installs it for you
+pip install "pytikz-diagrams[png]"   # Python 3.9+
+pytikz setup                         # finds LaTeX, or installs it for you
 ```
+
+The package is called `pytikz-diagrams` on PyPI and imported as `pytikz` (`import pytikz as tz`).
+From a clone of this repository, use `pip install -e ".[png]"` instead.
 
 That is all. `pytikz setup` checks what is installed, shows what it will do and asks
 before changing anything:
@@ -75,7 +78,7 @@ prefer your package manager:
 
 From Python or Jupyter the same checks are `tz.doctor()` and `tz.setup()`. To get the
 `pytikz` command everywhere without touching a project environment, use
-`pipx install ".[png]"` or `uv tool install ".[png]"`. Without any LaTeX you can still write
+`pipx install "pytikz-diagrams[png]"` or `uv tool install "pytikz-diagrams[png]"`. Without any LaTeX you can still write
 `.tex`/`.tikz` files and compile them elsewhere (e.g. on Overleaf).
 
 ## Quick start
@@ -96,7 +99,7 @@ pic.save("hello.tex")       # standalone LaTeX document
 pic.save("hello.tikz")      # just the picture, to \input in a paper
 ```
 
-<img src="examples/output/hello.png" height="110">
+<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/hello.png" height="110">
 
 The generated TikZ is what you would write by hand:
 
@@ -232,7 +235,7 @@ Predefined styles: `block=<color>`, `box`, `dot`, `tag=<color>`, `group=<color>`
 (circled operator such as $\oplus$), `muted`. Themes: `tz.Picture(theme="paper")` (serif,
 for print), `"dark"` (slides), `"mono"`.
 
-<img src="examples/output/themes_modern.png" height="160"> <img src="examples/output/themes_paper.png" height="160"> <img src="examples/output/themes_dark.png" height="160"> <img src="examples/output/themes_mono.png" height="160">
+<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/themes_modern.png" height="160"> <img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/themes_paper.png" height="160"> <img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/themes_dark.png" height="160"> <img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/themes_mono.png" height="160">
 
 ## Components
 
@@ -318,23 +321,23 @@ are placed in the freest direction.
 
 ## Gallery
 
-All examples live in [`examples/`](examples); `python examples/build_all.py` renders them
-into [`examples/output/`](examples/output) (PDF, PNG and the generated `.tex`).
+All examples live in [`examples/`](https://github.com/skhanzad/pytikz/tree/main/examples); `python examples/build_all.py` renders them
+into [`examples/output/`](https://github.com/skhanzad/pytikz/tree/main/examples/output) (PDF, PNG and the generated `.tex`).
 
 | | | |
 |:-:|:-:|:-:|
-| [<img src="examples/output/mlp.png" width="260"><br>MLP](examples/ml/mlp.py) | [<img src="examples/output/cnn.png" width="260"><br>CNN](examples/ml/cnn.py) | [<img src="examples/output/convolution.png" width="260"><br>Convolution](examples/ml/convolution.py) |
-| [<img src="examples/output/vae.png" width="260"><br>VAE](examples/ml/vae.py) | [<img src="examples/output/gan.png" width="260"><br>GAN](examples/ml/gan.py) | [<img src="examples/output/rnn.png" width="260"><br>RNN](examples/ml/rnn.py) |
-| [<img src="examples/output/resnet_block.png" width="160"><br>ResNet block](examples/ml/resnet_block.py) | [<img src="examples/output/gradient_descent.png" width="260"><br>Optimisers](examples/ml/gradient_descent.py) | [<img src="examples/output/svm.png" width="220"><br>SVM](examples/ml/svm.py) |
-| [<img src="examples/output/decision_tree.png" width="260"><br>Decision tree](examples/ml/decision_tree.py) | [<img src="examples/output/kmeans.png" width="220"><br>k-means](examples/ml/kmeans.py) | [<img src="examples/output/confusion_matrix.png" width="220"><br>Confusion matrix](examples/ml/confusion_matrix.py) |
-| [<img src="examples/output/backprop.png" width="260"><br>Backpropagation](examples/ml/backprop.py) | [<img src="examples/output/positional_encoding.png" width="260"><br>Positional encoding](examples/ml/positional_encoding.py) | [<img src="examples/output/activations.png" width="260"><br>Activations](examples/ml/activations.py) |
-| [<img src="examples/output/overfitting.png" width="260"><br>Over/underfitting](examples/ml/overfitting.py) | [<img src="examples/output/learning_curves.png" width="260"><br>Learning curves](examples/ml/learning_curves.py) | [<img src="examples/output/pca.png" width="220"><br>PCA](examples/ml/pca.py) |
-| [<img src="examples/output/unit_circle.png" width="220"><br>Unit circle](examples/math/unit_circle.py) | [<img src="examples/output/riemann_sum.png" width="260"><br>Riemann sum](examples/math/riemann_sum.py) | [<img src="examples/output/normal_distribution.png" width="260"><br>Normal distribution](examples/math/normal_distribution.py) |
-| [<img src="examples/output/taylor_series.png" width="260"><br>Taylor series](examples/math/taylor_series.py) | [<img src="examples/output/fourier_series.png" width="260"><br>Fourier series](examples/math/fourier_series.py) | [<img src="examples/output/derivative.png" width="220"><br>Derivative](examples/math/derivative.py) |
-| [<img src="examples/output/phase_portrait.png" width="260"><br>Phase portrait](examples/math/phase_portrait.py) | [<img src="examples/output/linear_map.png" width="260"><br>Linear map](examples/math/linear_map.py) | [<img src="examples/output/surfaces.png" width="260"><br>3D surfaces](examples/math/surfaces.py) |
-| [<img src="examples/output/triangle_centers.png" width="220"><br>Triangle centres](examples/math/triangle_centers.py) | [<img src="examples/output/pythagoras.png" width="200"><br>Pythagoras](examples/math/pythagoras.py) | [<img src="examples/output/roots_of_unity.png" width="200"><br>Roots of unity](examples/math/roots_of_unity.py) |
-| [<img src="examples/output/shortest_path.png" width="260"><br>Shortest path](examples/math/shortest_path.py) | [<img src="examples/output/automaton.png" width="260"><br>Automaton](examples/math/automaton.py) | [<img src="examples/output/commutative_diagrams.png" width="260"><br>Commutative diagrams](examples/math/commutative_diagrams.py) |
-| [<img src="examples/output/venn.png" width="200"><br>Venn diagram](examples/math/venn.py) | [<img src="examples/output/matrix_product.png" width="260"><br>Matrix product](examples/math/matrix_product.py) | [<img src="examples/output/tour.png" width="260"><br>API tour](examples/basics/tour.py) |
+| [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/mlp.png" width="260"><br>MLP](https://github.com/skhanzad/pytikz/blob/main/examples/ml/mlp.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/cnn.png" width="260"><br>CNN](https://github.com/skhanzad/pytikz/blob/main/examples/ml/cnn.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/convolution.png" width="260"><br>Convolution](https://github.com/skhanzad/pytikz/blob/main/examples/ml/convolution.py) |
+| [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/vae.png" width="260"><br>VAE](https://github.com/skhanzad/pytikz/blob/main/examples/ml/vae.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/gan.png" width="260"><br>GAN](https://github.com/skhanzad/pytikz/blob/main/examples/ml/gan.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/rnn.png" width="260"><br>RNN](https://github.com/skhanzad/pytikz/blob/main/examples/ml/rnn.py) |
+| [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/resnet_block.png" width="160"><br>ResNet block](https://github.com/skhanzad/pytikz/blob/main/examples/ml/resnet_block.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/gradient_descent.png" width="260"><br>Optimisers](https://github.com/skhanzad/pytikz/blob/main/examples/ml/gradient_descent.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/svm.png" width="220"><br>SVM](https://github.com/skhanzad/pytikz/blob/main/examples/ml/svm.py) |
+| [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/decision_tree.png" width="260"><br>Decision tree](https://github.com/skhanzad/pytikz/blob/main/examples/ml/decision_tree.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/kmeans.png" width="220"><br>k-means](https://github.com/skhanzad/pytikz/blob/main/examples/ml/kmeans.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/confusion_matrix.png" width="220"><br>Confusion matrix](https://github.com/skhanzad/pytikz/blob/main/examples/ml/confusion_matrix.py) |
+| [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/backprop.png" width="260"><br>Backpropagation](https://github.com/skhanzad/pytikz/blob/main/examples/ml/backprop.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/positional_encoding.png" width="260"><br>Positional encoding](https://github.com/skhanzad/pytikz/blob/main/examples/ml/positional_encoding.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/activations.png" width="260"><br>Activations](https://github.com/skhanzad/pytikz/blob/main/examples/ml/activations.py) |
+| [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/overfitting.png" width="260"><br>Over/underfitting](https://github.com/skhanzad/pytikz/blob/main/examples/ml/overfitting.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/learning_curves.png" width="260"><br>Learning curves](https://github.com/skhanzad/pytikz/blob/main/examples/ml/learning_curves.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/pca.png" width="220"><br>PCA](https://github.com/skhanzad/pytikz/blob/main/examples/ml/pca.py) |
+| [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/unit_circle.png" width="220"><br>Unit circle](https://github.com/skhanzad/pytikz/blob/main/examples/math/unit_circle.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/riemann_sum.png" width="260"><br>Riemann sum](https://github.com/skhanzad/pytikz/blob/main/examples/math/riemann_sum.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/normal_distribution.png" width="260"><br>Normal distribution](https://github.com/skhanzad/pytikz/blob/main/examples/math/normal_distribution.py) |
+| [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/taylor_series.png" width="260"><br>Taylor series](https://github.com/skhanzad/pytikz/blob/main/examples/math/taylor_series.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/fourier_series.png" width="260"><br>Fourier series](https://github.com/skhanzad/pytikz/blob/main/examples/math/fourier_series.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/derivative.png" width="220"><br>Derivative](https://github.com/skhanzad/pytikz/blob/main/examples/math/derivative.py) |
+| [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/phase_portrait.png" width="260"><br>Phase portrait](https://github.com/skhanzad/pytikz/blob/main/examples/math/phase_portrait.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/linear_map.png" width="260"><br>Linear map](https://github.com/skhanzad/pytikz/blob/main/examples/math/linear_map.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/surfaces.png" width="260"><br>3D surfaces](https://github.com/skhanzad/pytikz/blob/main/examples/math/surfaces.py) |
+| [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/triangle_centers.png" width="220"><br>Triangle centres](https://github.com/skhanzad/pytikz/blob/main/examples/math/triangle_centers.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/pythagoras.png" width="200"><br>Pythagoras](https://github.com/skhanzad/pytikz/blob/main/examples/math/pythagoras.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/roots_of_unity.png" width="200"><br>Roots of unity](https://github.com/skhanzad/pytikz/blob/main/examples/math/roots_of_unity.py) |
+| [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/shortest_path.png" width="260"><br>Shortest path](https://github.com/skhanzad/pytikz/blob/main/examples/math/shortest_path.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/automaton.png" width="260"><br>Automaton](https://github.com/skhanzad/pytikz/blob/main/examples/math/automaton.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/commutative_diagrams.png" width="260"><br>Commutative diagrams](https://github.com/skhanzad/pytikz/blob/main/examples/math/commutative_diagrams.py) |
+| [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/venn.png" width="200"><br>Venn diagram](https://github.com/skhanzad/pytikz/blob/main/examples/math/venn.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/matrix_product.png" width="260"><br>Matrix product](https://github.com/skhanzad/pytikz/blob/main/examples/math/matrix_product.py) | [<img src="https://raw.githubusercontent.com/skhanzad/pytikz/main/examples/output/tour.png" width="260"><br>API tour](https://github.com/skhanzad/pytikz/blob/main/examples/basics/tour.py) |
 
 ## Troubleshooting
 
@@ -362,7 +365,7 @@ pytest -m "not latex"       # without LaTeX
 python examples/build_all.py
 ```
 
-GitHub Actions ([`.github/workflows/python-package.yml`](.github/workflows/python-package.yml))
+GitHub Actions ([`.github/workflows/python-package.yml`](https://github.com/skhanzad/pytikz/blob/main/.github/workflows/python-package.yml))
 runs on every push and pull request:
 
 * **Lint**: `ruff check`.
@@ -372,6 +375,26 @@ runs on every push and pull request:
   rendered example gallery as an artifact.
 * **Build**: builds the sdist and wheel, checks them with `twine check --strict`, installs the
   wheel in a clean environment and uploads the distributions as an artifact.
+* **Publish**: when a GitHub release is published, uploads those distributions to PyPI, but
+  only if every job above passed and the release tag matches the package version.
+
+### Releasing
+
+Uploads use PyPI's [trusted publishing](https://docs.pypi.org/trusted-publishers/), so no API
+token is stored anywhere. One-time setup:
+
+1. On PyPI, add a pending publisher at <https://pypi.org/manage/account/publishing/>: project
+   `pytikz-diagrams`, owner `skhanzad`, repository `pytikz`, workflow `python-package.yml`,
+   environment `pypi`.
+2. On GitHub, create an environment named `pypi` (*Settings → Environments*). Adding yourself as
+   a required reviewer makes every upload wait for your approval.
+
+Then, for each release:
+
+1. Set `__version__` in `pytikz/__init__.py` (the only place the version is written), commit and push.
+2. Publish a GitHub release whose tag is that version with a `v` in front, e.g. `v0.1.0`
+   (*Releases → Draft a new release*).
+3. The workflow runs every check, builds the distributions and uploads them to PyPI.
 
 Layout: `pytikz/` holds the core (`picture.py`, `container.py`, `elements.py`,
 `coords.py`, `options.py`, `color.py`, `theme.py`, `compiler.py`, `cli.py`) and the

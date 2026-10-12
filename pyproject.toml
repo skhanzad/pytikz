@@ -3,18 +3,39 @@ requires = ["setuptools>=64"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pytikz"
-version = "0.1.0"
+# "pytikz" on PyPI belongs to an unrelated project; the import name is still `pytikz`.
+name = "pytikz-diagrams"
+dynamic = ["version"]  # from pytikz/__init__.py
 description = "Write Python, get beautiful TikZ: diagrams for machine learning and mathematics."
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = ["numpy>=1.20"]
 keywords = ["tikz", "latex", "diagrams", "machine learning", "plotting", "pgf"]
 classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Mathematics",
     "Topic :: Scientific/Engineering :: Visualization",
     "Topic :: Text Processing :: Markup :: LaTeX",
 ]
+
+[project.urls]
+Homepage = "https://github.com/skhanzad/pytikz"
+Documentation = "https://github.com/skhanzad/pytikz#readme"
+Issues = "https://github.com/skhanzad/pytikz/issues"
 
 [project.optional-dependencies]
 png = ["pypdfium2>=4"]   # PNG output without poppler/Ghostscript
@@ -25,6 +46,9 @@ pytikz = "pytikz.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["pytikz*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "pytikz.__version__" }
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
