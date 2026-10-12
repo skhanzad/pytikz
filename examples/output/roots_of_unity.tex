@@ -1,0 +1,42 @@
+\documentclass[tikz, border=6pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{lmodern}
+\usetikzlibrary{arrows.meta}
+\definecolor{Blue}{HTML}{3A76D8}
+\definecolor{Orange}{HTML}{EE8133}
+\definecolor{Ink}{HTML}{1F2937}
+\tikzset{
+  dot/.style={circle, fill, inner sep=0pt, minimum size=4.5pt},
+}
+\begin{document}
+\begin{tikzpicture}[color=Ink, line width=0.5pt, >={Latex[length=5pt, width=3.6pt]}, line join=round]
+  \draw[->, color=Ink!65] (-3.51,0) -- (3.64,0);
+  \draw[->, color=Ink!65] (0,-3.38) -- (0,3.51);
+  \node[anchor=west] at (3.64,0) {$\operatorname{Re}$};
+  \node[anchor=south] at (0,3.51) {$\operatorname{Im}$};
+  \draw[color=Ink!40, dashed] (0,0) circle[radius=2.6cm];
+  \draw[fill=Blue!8, draw=Blue!70, line width=0.9pt] (2.6,0) -- (1.6211,2.0328) -- (-0.5786,2.5348) --
+      (-2.3425,1.1281) -- (-2.3425,-1.1281) -- (-0.5786,-2.5348) -- (1.6211,-2.0328) -- cycle;
+  \draw[color=Blue!40, line width=0.5pt] (0,0) -- (2.6,0);
+  \node[dot, fill=Blue!70!black, minimum size=4.2pt, label={below right:{$1$}}] at (2.6,0) {};
+  \draw[color=Blue!40, line width=0.5pt] (0,0) -- (1.6211,2.0328);
+  \node[dot, fill=Blue!70!black, minimum size=4.2pt, label={51.4286:{$\omega^{1}$}}] at (1.6211,2.0328) {};
+  \draw[color=Blue!40, line width=0.5pt] (0,0) -- (-0.5786,2.5348);
+  \node[dot, fill=Blue!70!black, minimum size=4.2pt, label={102.857:{$\omega^{2}$}}] at (-0.5786,2.5348) {};
+  \draw[color=Blue!40, line width=0.5pt] (0,0) -- (-2.3425,1.1281);
+  \node[dot, fill=Blue!70!black, minimum size=4.2pt, label={154.286:{$\omega^{3}$}}] at (-2.3425,1.1281) {};
+  \draw[color=Blue!40, line width=0.5pt] (0,0) -- (-2.3425,-1.1281);
+  \node[dot, fill=Blue!70!black, minimum size=4.2pt, label={205.714:{$\omega^{4}$}}] at (-2.3425,-1.1281) {};
+  \draw[color=Blue!40, line width=0.5pt] (0,0) -- (-0.5786,-2.5348);
+  \node[dot, fill=Blue!70!black, minimum size=4.2pt, label={257.143:{$\omega^{5}$}}] at (-0.5786,-2.5348) {};
+  \draw[color=Blue!40, line width=0.5pt] (0,0) -- (1.6211,-2.0328);
+  \node[dot, fill=Blue!70!black, minimum size=4.2pt, label={308.571:{$\omega^{6}$}}] at (1.6211,-2.0328) {};
+  \fill[color=Orange!25] (0,0) -- (0.9,0) arc[start angle=0, end angle=51.4286, radius=0.9cm] -- cycle;
+  \draw (0.9,0) arc[start angle=0, end angle=51.4286, radius=0.9cm];
+  \node at (1.3064,0.6291) {$\frac{2\pi}{7}$};
+  \node[anchor=north, font=\small] at (0,-3.63) {$\omega = e^{2\pi i/7} = \cos\frac{2\pi}{7} + i\sin\frac{2\pi}{7}$};
+  \node[font=\large] at (-3.25,3.12) {$z^7 = 1$};
+\end{tikzpicture}
+\end{document}

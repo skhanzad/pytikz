@@ -1,0 +1,164 @@
+\documentclass[tikz, border=6pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,bm}
+\usepackage[scaled=0.95]{helvet}
+\usetikzlibrary{arrows.meta, fit}
+\definecolor{Blue}{HTML}{3A76D8}
+\definecolor{Orange}{HTML}{EE8133}
+\definecolor{Red}{HTML}{DF4B4B}
+\definecolor{Ink}{HTML}{1F2937}
+\begin{document}
+\begin{tikzpicture}[color=Ink, execute at begin picture={\sffamily}, line width=0.6pt, >={Stealth[length=5.5pt, width=4pt, inset=1.2pt]}, line join=round]
+  % axes ax1
+  \begin{scope}
+    \clip (0,0) rectangle (7.5,6);
+    \draw[color=Ink!60, line width=0.9pt] (2.624,2.225) -- (2.649,2.197) -- (2.684,2.177) --
+        (2.729,2.164) -- (2.783,2.16) -- (2.845,2.163) -- (2.916,2.174) -- (2.994,2.193) --
+        (3.109,2.231) -- (3.201,2.267) -- (3.299,2.311) -- (3.401,2.361) -- (3.506,2.417) --
+        (3.722,2.545) -- (3.866,2.641) -- (3.974,2.718) -- (4.182,2.878) -- (4.375,3.045) --
+        (4.546,3.211) -- (4.621,3.293) -- (4.709,3.398) -- (4.765,3.473) -- (4.812,3.544) --
+        (4.849,3.61) -- (4.876,3.672) -- (4.894,3.728) -- (4.901,3.778) -- (4.898,3.821) -- (4.89,3.846)
+        -- (4.878,3.868) -- (4.851,3.895) -- (4.815,3.914) -- (4.769,3.925) -- (4.713,3.928) --
+        (4.649,3.923) -- (4.578,3.911) -- (4.498,3.89) -- (4.412,3.862) -- (4.32,3.827) -- (4.223,3.785)
+        -- (4.122,3.736) -- (4.018,3.68) -- (3.802,3.554) -- (3.694,3.483) -- (3.55,3.383) --
+        (3.341,3.223) -- (3.146,3.057) -- (2.973,2.89) -- (2.897,2.808) -- (2.807,2.703) -- (2.75,2.627)
+        -- (2.702,2.555) -- (2.663,2.488) -- (2.633,2.425) -- (2.614,2.368) -- (2.605,2.317) --
+        (2.606,2.273) -- (2.613,2.247) -- (2.624,2.225);
+    \draw[dashed, color=Ink!60, line width=0.9pt] (1.495,1.405) -- (1.51,1.385) -- (1.546,1.35) --
+        (1.567,1.335) -- (1.616,1.309) -- (1.643,1.299) -- (1.705,1.285) -- (1.812,1.276) --
+        (1.937,1.282) -- (2.079,1.305) -- (2.235,1.343) -- (2.347,1.377) -- (2.464,1.418) --
+        (2.65,1.491) -- (2.845,1.578) -- (3.049,1.678) -- (3.259,1.79) -- (3.473,1.914) -- (3.69,2.047)
+        -- (3.908,2.19) -- (4.195,2.392) -- (4.406,2.55) -- (4.612,2.713) -- (4.809,2.879) --
+        (4.997,3.046) -- (5.174,3.213) -- (5.339,3.379) -- (5.489,3.541) -- (5.58,3.648) --
+        (5.664,3.751) -- (5.776,3.901) -- (5.87,4.044) -- (5.945,4.177) -- (6,4.3) -- (6.035,4.413) --
+        (6.042,4.447) -- (6.05,4.512) -- (6.05,4.543) -- (6.043,4.599) -- (6.028,4.649) -- (6.003,4.692)
+        -- (5.988,4.712) -- (5.95,4.746) -- (5.928,4.76) -- (5.877,4.783) -- (5.848,4.792) --
+        (5.784,4.806) -- (5.674,4.812) -- (5.546,4.803) -- (5.402,4.777) -- (5.244,4.737) --
+        (5.13,4.701) -- (5.012,4.659) -- (4.824,4.583) -- (4.627,4.494) -- (4.422,4.392) -- (4.14,4.237)
+        -- (3.924,4.108) -- (3.707,3.97) -- (3.49,3.823) -- (3.275,3.67) -- (3.065,3.511) --
+        (2.861,3.347) -- (2.665,3.181) -- (2.478,3.014) -- (2.303,2.847) -- (2.141,2.681) --
+        (1.994,2.519) -- (1.862,2.362) -- (1.747,2.211) -- (1.65,2.067) -- (1.572,1.932) --
+        (1.514,1.807) -- (1.475,1.693) -- (1.467,1.658) -- (1.457,1.591) -- (1.456,1.56) -- (1.46,1.502)
+        -- (1.473,1.451) -- (1.495,1.405);
+    \begin{scope}[opacity=0.7]
+    \fill[Blue!70] (5.922,3.949) circle[radius=1.6pt] (5.31,3.978) circle[radius=1.6pt] (6.318,4.767)
+        circle[radius=1.6pt] (4.616,4.071) circle[radius=1.6pt] (2.422,2.753) circle[radius=1.6pt]
+        (2.921,2.429) circle[radius=1.6pt] (2.505,2.865) circle[radius=1.6pt] (4.341,3.744)
+        circle[radius=1.6pt] (3.505,3.542) circle[radius=1.6pt] (4.726,3.589) circle[radius=1.6pt]
+        (3.301,2.844) circle[radius=1.6pt] (5.47,4.425) circle[radius=1.6pt] (3.928,3.054)
+        circle[radius=1.6pt] (3.876,3.231) circle[radius=1.6pt] (5.423,4.95) circle[radius=1.6pt]
+        (5.146,2.976) circle[radius=1.6pt] (3.545,3.578) circle[radius=1.6pt] (4.003,3.946)
+        circle[radius=1.6pt] (2.221,1.555) circle[radius=1.6pt] (6.696,4.544) circle[radius=1.6pt]
+        (2.616,1.856) circle[radius=1.6pt] (5.673,3.773) circle[radius=1.6pt] (3.755,3.031)
+        circle[radius=1.6pt] (2.596,2.688) circle[radius=1.6pt] (4.801,3.71) circle[radius=1.6pt]
+        (4.976,3.94) circle[radius=1.6pt] (5.251,3.539) circle[radius=1.6pt] (1.421,1.409)
+        circle[radius=1.6pt] (2.533,3.369) circle[radius=1.6pt] (2.913,2.395) circle[radius=1.6pt]
+        (3.841,2.755) circle[radius=1.6pt] (2.62,2.086) circle[radius=1.6pt] (1.892,1.565)
+        circle[radius=1.6pt] (4.222,3.177) circle[radius=1.6pt] (3.028,2.617) circle[radius=1.6pt]
+        (2.362,1.799) circle[radius=1.6pt] (3.04,3.447) circle[radius=1.6pt] (3.905,3.399)
+        circle[radius=1.6pt] (1.919,2.005) circle[radius=1.6pt] (4.861,2.859) circle[radius=1.6pt]
+        (1.045,1.33) circle[radius=1.6pt] (2.468,1.91) circle[radius=1.6pt] (1.656,1.803)
+        circle[radius=1.6pt] (3.878,2.708) circle[radius=1.6pt] (3.446,2.597) circle[radius=1.6pt]
+        (4.322,2.684) circle[radius=1.6pt] (4.254,3.471) circle[radius=1.6pt] (5.103,4.031)
+        circle[radius=1.6pt] (3.086,2.427) circle[radius=1.6pt] (4.555,3.318) circle[radius=1.6pt]
+        (3.031,1.813) circle[radius=1.6pt] (4.164,3.136) circle[radius=1.6pt] (3.607,2.906)
+        circle[radius=1.6pt] (4.549,4.561) circle[radius=1.6pt] (3.827,2.466) circle[radius=1.6pt]
+        (4.705,3.761) circle[radius=1.6pt] (3.351,2.129) circle[radius=1.6pt] (3.25,2.043)
+        circle[radius=1.6pt] (4.446,3.932) circle[radius=1.6pt] (1.906,1.697) circle[radius=1.6pt]
+        (3.832,3.692) circle[radius=1.6pt] (4.866,3.959) circle[radius=1.6pt] (3.291,3.188)
+        circle[radius=1.6pt] (3.477,2.722) circle[radius=1.6pt] (3.306,2.198) circle[radius=1.6pt]
+        (2.996,2.191) circle[radius=1.6pt] (4.82,3.624) circle[radius=1.6pt] (3.556,3.236)
+        circle[radius=1.6pt] (3.834,3.444) circle[radius=1.6pt] (2.705,2.252) circle[radius=1.6pt]
+        (4.638,4.099) circle[radius=1.6pt] (3.877,2.138) circle[radius=1.6pt] (4.802,3.851)
+        circle[radius=1.6pt] (5.389,3.879) circle[radius=1.6pt] (5.542,4.496) circle[radius=1.6pt]
+        (3.45,2.911) circle[radius=1.6pt] (2.238,1.806) circle[radius=1.6pt] (3.658,3.921)
+        circle[radius=1.6pt] (5.025,4.283) circle[radius=1.6pt] (5.141,4.134) circle[radius=1.6pt]
+        (1.381,1.492) circle[radius=1.6pt] (4.112,4.413) circle[radius=1.6pt] (4.387,3.393)
+        circle[radius=1.6pt] (3.689,2.367) circle[radius=1.6pt] (2.203,2.705) circle[radius=1.6pt]
+        (2.853,2.561) circle[radius=1.6pt] (3.734,3.444) circle[radius=1.6pt] (7.221,5.435)
+        circle[radius=1.6pt] (3.872,2.195) circle[radius=1.6pt] (3.31,2.669) circle[radius=1.6pt]
+        (3.767,3.1) circle[radius=1.6pt] (3.028,2.744) circle[radius=1.6pt] (4.908,3.804)
+        circle[radius=1.6pt] (3.941,3.193) circle[radius=1.6pt] (4.2,3.813) circle[radius=1.6pt]
+        (2.015,2.527) circle[radius=1.6pt] (1.363,2.053) circle[radius=1.6pt] (4.377,3.196)
+        circle[radius=1.6pt] (4.072,3.529) circle[radius=1.6pt] (3.692,3.463) circle[radius=1.6pt]
+        (2.032,1.624) circle[radius=1.6pt] (2.758,2.154) circle[radius=1.6pt] (5.392,3.606)
+        circle[radius=1.6pt] (4.483,2.668) circle[radius=1.6pt] (2.898,3.146) circle[radius=1.6pt]
+        (5.092,3.832) circle[radius=1.6pt] (1.991,1.959) circle[radius=1.6pt] (3.589,2.804)
+        circle[radius=1.6pt] (2.569,2.359) circle[radius=1.6pt] (5.428,3.086) circle[radius=1.6pt]
+        (6.55,5.328) circle[radius=1.6pt] (3.748,3.717) circle[radius=1.6pt] (3.449,2.231)
+        circle[radius=1.6pt] (3.191,3.204) circle[radius=1.6pt] (4.839,3.572) circle[radius=1.6pt]
+        (2.199,1.125) circle[radius=1.6pt] (4.73,4.225) circle[radius=1.6pt] (3.763,2.514)
+        circle[radius=1.6pt] (5.248,4.316) circle[radius=1.6pt] (2.255,2.37) circle[radius=1.6pt]
+        (2.998,3.209) circle[radius=1.6pt] (3.578,2.528) circle[radius=1.6pt] (1.777,1.067)
+        circle[radius=1.6pt] (3.912,3.12) circle[radius=1.6pt] (2.339,1.685) circle[radius=1.6pt]
+        (4.413,2.674) circle[radius=1.6pt] (3.291,2.924) circle[radius=1.6pt] (3.226,2.235)
+        circle[radius=1.6pt] (3.67,2.569) circle[radius=1.6pt] (4.29,3.385) circle[radius=1.6pt]
+        (2.425,1.897) circle[radius=1.6pt] (3.731,2.63) circle[radius=1.6pt] (4.52,3.254)
+        circle[radius=1.6pt] (3.774,3.414) circle[radius=1.6pt] (4.821,4.131) circle[radius=1.6pt]
+        (4.733,3.888) circle[radius=1.6pt] (4.427,3.372) circle[radius=1.6pt] (3.97,3.705)
+        circle[radius=1.6pt] (3.274,3.199) circle[radius=1.6pt] (4.222,3.252) circle[radius=1.6pt]
+        (2.346,1.265) circle[radius=1.6pt] (4.777,3.671) circle[radius=1.6pt] (1.912,1.444)
+        circle[radius=1.6pt] (2.593,2.952) circle[radius=1.6pt] (4.075,3.177) circle[radius=1.6pt]
+        (2.066,1.579) circle[radius=1.6pt] (4.767,4.136) circle[radius=1.6pt] (4.085,3.873)
+        circle[radius=1.6pt] (3.548,2.063) circle[radius=1.6pt] (3.476,2.839) circle[radius=1.6pt]
+        (4.286,3.924) circle[radius=1.6pt] (5.976,4.013) circle[radius=1.6pt] (4.168,3.694)
+        circle[radius=1.6pt] (5.602,4.037) circle[radius=1.6pt] (4.877,3.114) circle[radius=1.6pt]
+        (4.449,2.979) circle[radius=1.6pt] (4.235,3.499) circle[radius=1.6pt] (4.978,3.48)
+        circle[radius=1.6pt] (5.059,3.547) circle[radius=1.6pt] (5.765,3.889) circle[radius=1.6pt]
+        (3.853,2.679) circle[radius=1.6pt] (0.387,0.259) circle[radius=1.6pt] (3.609,2.213)
+        circle[radius=1.6pt] (4.212,3.089) circle[radius=1.6pt] (3.621,3.556) circle[radius=1.6pt]
+        (4.231,2.794) circle[radius=1.6pt] (3.862,2.649) circle[radius=1.6pt] (3.599,3.671)
+        circle[radius=1.6pt] (2.516,2.668) circle[radius=1.6pt] (3.186,2.627) circle[radius=1.6pt]
+        (5.552,4.087) circle[radius=1.6pt] (4.205,3.678) circle[radius=1.6pt] (2.565,2.427)
+        circle[radius=1.6pt] (4.25,4.261) circle[radius=1.6pt] (2.241,1.871) circle[radius=1.6pt]
+        (3.405,3.096) circle[radius=1.6pt] (3.656,2.928) circle[radius=1.6pt] (3.207,2.661)
+        circle[radius=1.6pt] (3.853,2.357) circle[radius=1.6pt] (5.156,4.85) circle[radius=1.6pt]
+        (5.317,4.376) circle[radius=1.6pt] (3.355,2.865) circle[radius=1.6pt] (4.303,3.907)
+        circle[radius=1.6pt] (3.435,2.657) circle[radius=1.6pt] (5.336,4.053) circle[radius=1.6pt]
+        (4.66,3.093) circle[radius=1.6pt] (3.215,2.935) circle[radius=1.6pt] (2.811,2.434)
+        circle[radius=1.6pt] (3.778,3.598) circle[radius=1.6pt] (2.424,3.19) circle[radius=1.6pt]
+        (3.304,2.295) circle[radius=1.6pt] (2.192,3.043) circle[radius=1.6pt] (3.454,2.758)
+        circle[radius=1.6pt] (3.979,4.113) circle[radius=1.6pt] (3.961,3.09) circle[radius=1.6pt]
+        (3.656,2.324) circle[radius=1.6pt] (4.253,2.82) circle[radius=1.6pt] (3.749,3.294)
+        circle[radius=1.6pt] (2.76,2.166) circle[radius=1.6pt] (2.867,2.255) circle[radius=1.6pt]
+        (5.381,4.486) circle[radius=1.6pt] (3.885,3.212) circle[radius=1.6pt] (6.505,5.116)
+        circle[radius=1.6pt] (3.347,2.901) circle[radius=1.6pt] (2.596,2.087) circle[radius=1.6pt]
+        (1.155,1.582) circle[radius=1.6pt] (3.557,1.769) circle[radius=1.6pt] (5.5,5.02)
+        circle[radius=1.6pt] (3.022,3.004) circle[radius=1.6pt] (4.073,3.256) circle[radius=1.6pt]
+        (3.141,2.285) circle[radius=1.6pt] (2.39,1.608) circle[radius=1.6pt] (3.419,2.732)
+        circle[radius=1.6pt] (2.955,3.121) circle[radius=1.6pt] (4.721,4.001) circle[radius=1.6pt]
+        (3.273,3.162) circle[radius=1.6pt] (3.695,2.836) circle[radius=1.6pt] (2.746,3.023)
+        circle[radius=1.6pt] (2.635,2.394) circle[radius=1.6pt] (3.404,2.142) circle[radius=1.6pt];
+    \end{scope}
+  \end{scope}
+  \draw[Ink!80, line width=0.5pt] (0,0) rectangle (7.5,6);
+  \draw[Ink!80, line width=0.5pt] (0.375,0) -- (0.375,0.1) (1.875,0) -- (1.875,0.1) (3.375,0) --
+      (3.375,0.1) (4.875,0) -- (4.875,0.1) (6.375,0) -- (6.375,0.1) (0,1.2) -- (0.1,1.2) (0,2.8) --
+      (0.1,2.8) (0,4.4) -- (0.1,4.4) (0,6) -- (0.1,6);
+  \node[anchor=north, font=\footnotesize, text=Ink!85, inner sep=2pt] (ax1-xt0) at (0.375,-0.06) {$-$4};
+  \node[anchor=north, font=\footnotesize, text=Ink!85, inner sep=2pt] (ax1-xt1) at (1.875,-0.06) {$-$2};
+  \node[anchor=north, font=\footnotesize, text=Ink!85, inner sep=2pt] (ax1-xt2) at (3.375,-0.06) {0};
+  \node[anchor=north, font=\footnotesize, text=Ink!85, inner sep=2pt] (ax1-xt3) at (4.875,-0.06) {2};
+  \node[anchor=north, font=\footnotesize, text=Ink!85, inner sep=2pt] (ax1-xt4) at (6.375,-0.06) {4};
+  \node[anchor=east, font=\footnotesize, text=Ink!85, inner sep=2pt] (ax1-yt0) at (-0.06,1.2) {$-$2};
+  \node[anchor=east, font=\footnotesize, text=Ink!85, inner sep=2pt] (ax1-yt1) at (-0.06,2.8) {0};
+  \node[anchor=east, font=\footnotesize, text=Ink!85, inner sep=2pt] (ax1-yt2) at (-0.06,4.4) {2};
+  \node[anchor=east, font=\footnotesize, text=Ink!85, inner sep=2pt] (ax1-yt3) at (-0.06,6) {4};
+  \draw[->, color=Red, line width=1.6pt] (3.753,3.044) -- (6.01,4.682);
+  \draw[->, color=Orange, line width=1.6pt] (3.753,3.044) -- (3.329,3.709);
+  \node[anchor=214, text=Red!80!black, font=\small\bfseries, inner sep=3pt] at (6.01,4.682) {PC1};
+  \node[anchor=304, text=Orange!80!black, font=\small\bfseries, inner sep=3pt] at (3.329,3.709) {PC2};
+  \node[fit=(ax1-xt0)(ax1-xt1)(ax1-xt2)(ax1-xt3)(ax1-xt4), inner sep=0pt] (ax1-xticks) {};
+  \node[anchor=north, font=\small, align=center, inner sep=4pt] at (3.75,0 |- ax1-xticks.south) {$x_1$};
+  \node[fit=(ax1-yt0)(ax1-yt1)(ax1-yt2)(ax1-yt3), inner sep=0pt] (ax1-yticks) {};
+  \node[anchor=south, rotate=90, font=\small, align=center, inner sep=4pt] at (ax1-yticks.west |- 0,3) {$x_2$};
+  \node[anchor=south, font=\small\bfseries, inner sep=4pt, align=center] at (3.75,6.05) {Principal components};
+  \node[anchor=south east, font=\footnotesize, inner sep=4pt, align=left, fill=white, draw=Ink!18, rounded corners=2pt, fill opacity=0.92, text opacity=1] at (7.38,0.12) {%
+    \begin{tabular}{@{}l@{\hspace{4pt}}l@{}}
+      \tikz[baseline=-0.6ex]{\draw[color=Ink!60, line width=0.9pt] (0,0) -- (0.6,0);} & $1\sigma$ \\
+      \tikz[baseline=-0.6ex]{\draw[dashed, color=Ink!60, line width=0.9pt] (0,0) -- (0.6,0);} & $2\sigma$ \\
+    \end{tabular}%
+  };
+\end{tikzpicture}
+\end{document}

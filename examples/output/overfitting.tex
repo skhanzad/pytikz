@@ -1,0 +1,143 @@
+\documentclass[tikz, border=6pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,bm}
+\usepackage[scaled=0.95]{helvet}
+\usetikzlibrary{arrows.meta}
+\definecolor{Blue}{HTML}{3A76D8}
+\definecolor{Green}{HTML}{3BA55C}
+\definecolor{Orange}{HTML}{EE8133}
+\definecolor{Red}{HTML}{DF4B4B}
+\definecolor{Gray}{HTML}{6B7280}
+\definecolor{Ink}{HTML}{1F2937}
+\begin{document}
+\begin{tikzpicture}[color=Ink, execute at begin picture={\sffamily}, line width=0.6pt, >={Stealth[length=5.5pt, width=4pt, inset=1.2pt]}, line join=round]
+  % axes ax1
+  \begin{scope}
+    \clip (0,0) rectangle (4.8,3.6);
+    \draw[dashed, color=Gray!70, line width=1pt] (0,1.8) -- (0.217,2.08) -- (0.385,2.283) --
+        (0.529,2.439) -- (0.602,2.508) -- (0.674,2.572) -- (0.746,2.628) -- (0.806,2.67) --
+        (0.878,2.713) -- (0.938,2.742) -- (1.011,2.769) -- (1.071,2.786) -- (1.143,2.797) -- (1.203,2.8)
+        -- (1.263,2.797) -- (1.335,2.784) -- (1.408,2.763) -- (1.48,2.734) -- (1.552,2.696) --
+        (1.624,2.65) -- (1.696,2.596) -- (1.768,2.536) -- (1.841,2.469) -- (1.913,2.395) -- (2.069,2.22)
+        -- (2.226,2.026) -- (2.659,1.468) -- (2.791,1.31) -- (2.911,1.18) -- (2.983,1.108) --
+        (3.056,1.043) -- (3.128,0.985) -- (3.188,0.942) -- (3.26,0.897) -- (3.32,0.866) -- (3.38,0.841)
+        -- (3.441,0.822) -- (3.525,0.805) -- (3.597,0.8) -- (3.669,0.804) -- (3.741,0.817) --
+        (3.814,0.839) -- (3.886,0.869) -- (3.958,0.908) -- (4.042,0.963) -- (4.114,1.018) --
+        (4.198,1.092) -- (4.283,1.173) -- (4.367,1.263) -- (4.547,1.475) -- (4.8,1.8);
+    \draw[color=Orange, line width=1.6pt] (0,2.004) -- (4.8,0.936);
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (0.013,1.543) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (0.079,1.743) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (0.161,1.89) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (0.197,1.985) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (1.295,2.883) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.609,1.759) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.912,1.151) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (3.057,1.342) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (3.502,0.662) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (3.904,0.955) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (3.916,1.083) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (4.116,1.04) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (4.381,1.115) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (4.488,1.2) circle[radius=2pt];
+  \end{scope}
+  \draw[Ink!80, line width=0.5pt] (0,0) rectangle (4.8,3.6);
+  \node[anchor=south west, font=\scriptsize, text=Ink!70] at (0.144,0.1) {train MSE 0.157};
+  \node[anchor=south, font=\small\bfseries, inner sep=4pt, align=center] at (2.4,3.65) {Underfitting (degree 1)};
+  % axes ax2
+  \begin{scope}
+    \clip (5.6,0) rectangle (10.4,3.6);
+    \draw[dashed, color=Gray!70, line width=1pt] (5.6,1.8) -- (5.817,2.08) -- (5.985,2.283) --
+        (6.129,2.439) -- (6.202,2.508) -- (6.274,2.572) -- (6.346,2.628) -- (6.406,2.67) --
+        (6.478,2.713) -- (6.538,2.742) -- (6.611,2.769) -- (6.671,2.786) -- (6.743,2.797) -- (6.803,2.8)
+        -- (6.863,2.797) -- (6.935,2.784) -- (7.008,2.763) -- (7.08,2.734) -- (7.152,2.696) --
+        (7.224,2.65) -- (7.296,2.596) -- (7.368,2.536) -- (7.441,2.469) -- (7.513,2.395) -- (7.669,2.22)
+        -- (7.826,2.026) -- (8.259,1.468) -- (8.391,1.31) -- (8.511,1.18) -- (8.583,1.108) --
+        (8.656,1.043) -- (8.728,0.985) -- (8.788,0.942) -- (8.86,0.897) -- (8.92,0.866) -- (8.98,0.841)
+        -- (9.041,0.822) -- (9.125,0.805) -- (9.197,0.8) -- (9.269,0.804) -- (9.341,0.817) --
+        (9.414,0.839) -- (9.486,0.869) -- (9.558,0.908) -- (9.642,0.963) -- (9.714,1.018) --
+        (9.798,1.092) -- (9.883,1.173) -- (9.967,1.263) -- (10.147,1.475) -- (10.4,1.8);
+    \draw[color=Green, line width=1.6pt] (5.6,1.467) -- (5.708,1.791) -- (5.768,1.951) -- (5.829,2.096)
+        -- (5.889,2.228) -- (5.949,2.347) -- (6.009,2.453) -- (6.081,2.565) -- (6.141,2.646) --
+        (6.214,2.729) -- (6.274,2.786) -- (6.346,2.842) -- (6.406,2.878) -- (6.478,2.91) -- (6.55,2.929)
+        -- (6.623,2.938) -- (6.683,2.937) -- (6.755,2.927) -- (6.815,2.911) -- (6.887,2.885) --
+        (6.959,2.85) -- (7.032,2.809) -- (7.104,2.76) -- (7.188,2.697) -- (7.332,2.571) -- (7.501,2.405)
+        -- (7.681,2.211) -- (8.03,1.82) -- (8.186,1.649) -- (8.343,1.486) -- (8.487,1.348) --
+        (8.571,1.274) -- (8.656,1.205) -- (8.74,1.142) -- (8.812,1.093) -- (8.884,1.049) -- (8.956,1.01)
+        -- (9.029,0.976) -- (9.101,0.949) -- (9.185,0.924) -- (9.269,0.908) -- (9.353,0.901) --
+        (9.438,0.903) -- (9.522,0.914) -- (9.606,0.934) -- (9.69,0.965) -- (9.762,0.999) --
+        (9.847,1.049) -- (9.931,1.108) -- (10.015,1.178) -- (10.087,1.247) -- (10.171,1.336) --
+        (10.244,1.421) -- (10.316,1.514) -- (10.4,1.632);
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (5.613,1.543) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (5.679,1.743) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (5.761,1.89) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (5.797,1.985) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (6.895,2.883) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (8.209,1.759) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (8.512,1.151) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (8.657,1.342) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (9.102,0.662) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (9.504,0.955) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (9.516,1.083) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (9.716,1.04) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (9.981,1.115) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (10.088,1.2) circle[radius=2pt];
+  \end{scope}
+  \draw[Ink!80, line width=0.5pt] (5.6,0) rectangle (10.4,3.6);
+  \node[anchor=south west, font=\scriptsize, text=Ink!70] at (5.744,0.1) {train MSE 0.014};
+  \node[anchor=south, font=\small\bfseries, inner sep=4pt, align=center] at (8,3.65) {Good fit (degree 4)};
+  % axes ax3
+  \begin{scope}
+    \clip (11.2,0) rectangle (16,3.6);
+    \draw[dashed, color=Gray!70, line width=1pt] (11.2,1.8) -- (11.417,2.08) -- (11.585,2.283) --
+        (11.729,2.439) -- (11.802,2.508) -- (11.874,2.572) -- (11.946,2.628) -- (12.006,2.67) --
+        (12.078,2.713) -- (12.138,2.742) -- (12.211,2.769) -- (12.271,2.786) -- (12.343,2.797) --
+        (12.403,2.8) -- (12.463,2.797) -- (12.535,2.784) -- (12.608,2.763) -- (12.68,2.734) --
+        (12.752,2.696) -- (12.824,2.65) -- (12.896,2.596) -- (12.968,2.536) -- (13.041,2.469) --
+        (13.113,2.395) -- (13.269,2.22) -- (13.426,2.026) -- (13.859,1.468) -- (13.991,1.31) --
+        (14.111,1.18) -- (14.183,1.108) -- (14.256,1.043) -- (14.328,0.985) -- (14.388,0.942) --
+        (14.46,0.897) -- (14.52,0.866) -- (14.58,0.841) -- (14.641,0.822) -- (14.725,0.805) --
+        (14.797,0.8) -- (14.869,0.804) -- (14.941,0.817) -- (15.014,0.839) -- (15.086,0.869) --
+        (15.158,0.908) -- (15.242,0.963) -- (15.314,1.018) -- (15.398,1.092) -- (15.483,1.173) --
+        (15.567,1.263) -- (15.747,1.475) -- (16,1.8);
+    \draw[color=Red, line width=1.6pt] (11.2,2.141) -- (11.212,1.578) -- (11.224,1.323) --
+        (11.236,1.275) -- (11.248,1.353) -- (11.284,1.798) -- (11.296,1.909) -- (11.308,1.977) --
+        (11.32,2.001) -- (11.332,1.988) -- (11.368,1.873) -- (11.38,1.877) -- (11.392,1.943) --
+        (11.405,2.096) -- (11.417,2.362) -- (11.429,2.768) -- (11.445,3.6);
+    \draw[color=Red, line width=1.6pt] (12.494,3.6) -- (12.499,0);
+    \draw[color=Red, line width=1.6pt] (13.746,0) -- (13.774,0.96) -- (13.786,1.28) -- (13.811,1.778) --
+        (13.823,1.962) -- (13.847,2.219) -- (13.859,2.297) -- (13.871,2.346) -- (13.883,2.369) --
+        (13.895,2.37) -- (13.907,2.35) -- (13.919,2.314) -- (13.943,2.199) -- (13.967,2.046) --
+        (14.039,1.523) -- (14.063,1.371) -- (14.087,1.245) -- (14.111,1.153) -- (14.123,1.119) --
+        (14.135,1.096) -- (14.147,1.081) -- (14.159,1.076) -- (14.171,1.081) -- (14.183,1.094) --
+        (14.195,1.115) -- (14.22,1.183) -- (14.244,1.278) -- (14.28,1.459) -- (14.364,1.937) --
+        (14.388,2.054) -- (14.412,2.149) -- (14.436,2.216) -- (14.448,2.238) -- (14.46,2.25) --
+        (14.472,2.254) -- (14.484,2.248) -- (14.496,2.233) -- (14.508,2.207) -- (14.532,2.126) --
+        (14.556,2.006) -- (14.58,1.848) -- (14.605,1.657) -- (14.653,1.194) -- (14.765,0);
+    \draw[color=Red, line width=1.6pt] (15.016,0) -- (15.11,1.019) -- (15.146,1.354) -- (15.17,1.523) --
+        (15.182,1.585) -- (15.194,1.631) -- (15.206,1.659) -- (15.218,1.669) -- (15.23,1.66) --
+        (15.242,1.631) -- (15.254,1.582) -- (15.266,1.513) -- (15.29,1.318) -- (15.326,0.903) --
+        (15.389,0);
+    \draw[color=Red, line width=1.6pt] (15.538,0) -- (15.567,0.703) -- (15.615,2.072) -- (15.627,2.332)
+        -- (15.639,2.501) -- (15.651,2.535) -- (15.663,2.384) -- (15.675,1.991) -- (15.687,1.286) --
+        (15.701,0);
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (11.213,1.543) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (11.279,1.743) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (11.361,1.89) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (11.397,1.985) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (12.495,2.883) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (13.809,1.759) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (14.112,1.151) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (14.257,1.342) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (14.702,0.662) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (15.104,0.955) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (15.116,1.083) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (15.316,1.04) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (15.581,1.115) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (15.688,1.2) circle[radius=2pt];
+  \end{scope}
+  \draw[Ink!80, line width=0.5pt] (11.2,0) rectangle (16,3.6);
+  \node[anchor=south west, font=\scriptsize, text=Ink!70] at (11.344,0.1) {train MSE 0.000};
+  \node[anchor=south, font=\small\bfseries, inner sep=4pt, align=center] at (13.6,3.65) {Overfitting (degree 13)};
+\end{tikzpicture}
+\end{document}

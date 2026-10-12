@@ -1,0 +1,234 @@
+\documentclass[tikz, border=6pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,bm}
+\usepackage[scaled=0.95]{helvet}
+\usetikzlibrary{arrows.meta, fit}
+\definecolor{Blue}{HTML}{3A76D8}
+\definecolor{Green}{HTML}{3BA55C}
+\definecolor{Yellow}{HTML}{EAB531}
+\definecolor{Orange}{HTML}{EE8133}
+\definecolor{Pink}{HTML}{D9508E}
+\definecolor{Purple}{HTML}{8459D1}
+\definecolor{Ink}{HTML}{1F2937}
+\definecolor{cB6B6D8}{HTML}{B6B6D8}
+\definecolor{cF7F6FA}{HTML}{F7F6FA}
+\definecolor{cF3F1F7}{HTML}{F3F1F7}
+\definecolor{cF5F4F9}{HTML}{F5F4F9}
+\definecolor{cB4B4D7}{HTML}{B4B4D7}
+\definecolor{cF8F7FB}{HTML}{F8F7FB}
+\definecolor{cFAF8FB}{HTML}{FAF8FB}
+\definecolor{c63439C}{HTML}{63439C}
+\definecolor{cF8F7FA}{HTML}{F8F7FA}
+\definecolor{cFBFAFC}{HTML}{FBFAFC}
+\definecolor{cF9F7FB}{HTML}{F9F7FB}
+\definecolor{cEAE8F2}{HTML}{EAE8F2}
+\definecolor{cF1EFF6}{HTML}{F1EFF6}
+\definecolor{cF3F2F8}{HTML}{F3F2F8}
+\definecolor{c8986BE}{HTML}{8986BE}
+\definecolor{cF4F3F8}{HTML}{F4F3F8}
+\definecolor{cF0EEF5}{HTML}{F0EEF5}
+\definecolor{cFAF9FC}{HTML}{FAF9FC}
+\definecolor{cFCFBFD}{HTML}{FCFBFD}
+\definecolor{c3F007D}{HTML}{3F007D}
+\definecolor{cB7B7D9}{HTML}{B7B7D9}
+\definecolor{cF6F5F9}{HTML}{F6F5F9}
+\definecolor{cF6F4F9}{HTML}{F6F4F9}
+\definecolor{cB2B2D5}{HTML}{B2B2D5}
+\definecolor{cF4F2F8}{HTML}{F4F2F8}
+\definecolor{cAFAED4}{HTML}{AFAED4}
+\definecolor{cEEECF5}{HTML}{EEECF5}
+\definecolor{cD6D6E9}{HTML}{D6D6E9}
+\definecolor{cF0EEF6}{HTML}{F0EEF6}
+\definecolor{cEDEBF4}{HTML}{EDEBF4}
+\definecolor{cE9E8F2}{HTML}{E9E8F2}
+\definecolor{cE4E3F0}{HTML}{E4E3F0}
+\definecolor{cE0E0EE}{HTML}{E0E0EE}
+\definecolor{cDCDCEC}{HTML}{DCDCEC}
+\definecolor{cD7D7E9}{HTML}{D7D7E9}
+\definecolor{cD1D2E7}{HTML}{D1D2E7}
+\definecolor{cCBCBE3}{HTML}{CBCBE3}
+\definecolor{cC5C6E1}{HTML}{C5C6E1}
+\definecolor{cBFC0DE}{HTML}{BFC0DE}
+\definecolor{cB9B9DA}{HTML}{B9B9DA}
+\definecolor{cB3B3D6}{HTML}{B3B3D6}
+\definecolor{cADABD2}{HTML}{ADABD2}
+\definecolor{cA7A4CE}{HTML}{A7A4CE}
+\definecolor{cA19ECA}{HTML}{A19ECA}
+\definecolor{c9B97C6}{HTML}{9B97C6}
+\definecolor{c9591C4}{HTML}{9591C4}
+\definecolor{c8F8CC1}{HTML}{8F8CC1}
+\definecolor{c8380BB}{HTML}{8380BB}
+\definecolor{c7D78B7}{HTML}{7D78B7}
+\definecolor{c7970B3}{HTML}{7970B3}
+\definecolor{c7567AF}{HTML}{7567AF}
+\definecolor{c705EAA}{HTML}{705EAA}
+\definecolor{c6C55A5}{HTML}{6C55A5}
+\definecolor{c684DA1}{HTML}{684DA1}
+\definecolor{c63449D}{HTML}{63449D}
+\definecolor{c5F3C99}{HTML}{5F3C99}
+\definecolor{c5A3395}{HTML}{5A3395}
+\definecolor{c562B91}{HTML}{562B91}
+\definecolor{c52238D}{HTML}{52238D}
+\definecolor{c4D1B89}{HTML}{4D1B89}
+\definecolor{c4A1486}{HTML}{4A1486}
+\definecolor{c460C83}{HTML}{460C83}
+\definecolor{c41047F}{HTML}{41047F}
+\colorlet{softmax}{Green}
+\tikzset{
+  block/.style={/utils/exec={\colorlet{pytikzarg}{#1}}, draw=pytikzarg!78!black, fill=pytikzarg!14, rounded corners=3pt, align=center, inner sep=5pt, minimum height=8mm, minimum width=20mm},
+  block/.default=Blue,
+}
+\begin{document}
+\begin{tikzpicture}[color=Ink, execute at begin picture={\sffamily}, line width=0.6pt, >={Stealth[length=5.5pt, width=4pt, inset=1.2pt]}, line join=round]
+  \node[block=Purple, minimum width=0.7cm] (n1) at (-0.8,-0.2) {$Q$};
+  \node[block=Purple, minimum width=0.7cm] (n2) at (0,-0.2) {$K$};
+  \node[block=Purple, minimum width=0.7cm] (n3) at (1.6,-0.2) {$V$};
+  \node[block=Blue, minimum width=2.6cm, minimum height=0.65cm, font=\small] (n4) at (0,1.1) {MatMul};
+  \node[block=Yellow, minimum width=2.6cm, minimum height=0.65cm, font=\small] (n5) at (0,2.15) {Scale};
+  \node[block=Pink, minimum width=2.6cm, minimum height=0.65cm, font=\small] (n6) at (0,3.2) {Mask (opt.)};
+  \node[block=Green, minimum width=2.6cm, minimum height=0.65cm, font=\small] (n7) at (0,4.25) {SoftMax};
+  \node[block=Blue, minimum width=2.6cm, minimum height=0.65cm, font=\small] (n8) at (0.8,5.5) {MatMul};
+  \draw[->] (n1) -- (n1 |- n4.south);
+  \draw[->] (n2) -- (n2 |- n4.south);
+  \draw[->] (n4) -- (n5);
+  \draw[->] (n5) -- (n6);
+  \draw[->] (n6) -- (n7);
+  \draw[->] (n7.north) -- (n7 |- n8.south);
+  \draw[->] (n3) -- (n3 |- n8.south);
+  \draw[->] (n8) -- (0.8,6.5);
+  \node[font=\small] at (0.8,6.85) {$\operatorname{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V$};
+  % heatmap hm1 6x6
+  \fill[cB6B6D8] (4.2,4.85) rectangle (4.953,5.603);
+  \fill[cF7F6FA] (4.95,4.85) rectangle (5.703,5.603);
+  \fill[cF3F1F7] (5.7,4.85) rectangle (6.453,5.603) (5.7,1.85) rectangle (6.453,2.603);
+  \fill[cF5F4F9] (6.45,4.85) rectangle (7.203,5.603) (6.45,1.1) rectangle (7.203,1.853);
+  \fill[cB4B4D7] (7.2,4.85) rectangle (7.953,5.603);
+  \fill[cF8F7FB] (7.95,4.85) rectangle (8.703,5.603) (7.95,1.85) rectangle (8.703,2.603);
+  \fill[cFAF8FB] (4.2,4.1) rectangle (4.953,4.853);
+  \fill[c63439C] (4.95,4.1) rectangle (5.703,4.853);
+  \fill[cF8F7FA] (5.7,4.1) rectangle (6.453,4.853);
+  \fill[cFBFAFC] (6.45,4.1) rectangle (7.203,4.853);
+  \fill[cF9F7FB] (7.2,4.1) rectangle (7.953,4.853);
+  \fill[cEAE8F2] (7.95,4.1) rectangle (8.703,4.853);
+  \fill[cF1EFF6] (4.2,3.35) rectangle (4.953,4.103);
+  \fill[cF3F2F8] (4.95,3.35) rectangle (5.703,4.103) (7.95,3.35) rectangle (8.703,4.103) (7.2,1.1)
+      rectangle (7.953,1.853);
+  \fill[c8986BE] (5.7,3.35) rectangle (6.453,4.103);
+  \fill[cF4F3F8] (6.45,3.35) rectangle (7.203,4.103);
+  \fill[cF0EEF5] (7.2,3.35) rectangle (7.953,4.103);
+  \fill[cFAF9FC] (4.2,2.6) rectangle (4.953,3.353) (5.7,2.6) rectangle (6.453,3.353) (7.2,2.6)
+      rectangle (7.953,3.353);
+  \fill[cFCFBFD] (4.95,2.6) rectangle (5.703,3.353) (7.95,2.6) rectangle (8.703,3.353);
+  \fill[c3F007D] (6.45,2.6) rectangle (7.203,3.353);
+  \fill[cB7B7D9] (4.2,1.85) rectangle (4.953,2.603);
+  \fill[cF6F5F9] (4.95,1.85) rectangle (5.703,2.603);
+  \fill[cF6F4F9] (6.45,1.85) rectangle (7.203,2.603);
+  \fill[cB2B2D5] (7.2,1.85) rectangle (7.953,2.603);
+  \fill[cF4F2F8] (4.2,1.1) rectangle (4.953,1.853);
+  \fill[cAFAED4] (4.95,1.1) rectangle (5.703,1.853);
+  \fill[cEEECF5] (5.7,1.1) rectangle (6.453,1.853);
+  \fill[cD6D6E9] (7.95,1.1) rectangle (8.703,1.853);
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (4.575,5.225) {0.36};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (5.325,5.225) {0.06};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (6.075,5.225) {0.09};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (6.825,5.225) {0.07};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (7.575,5.225) {0.37};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (8.325,5.225) {0.05};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (4.575,4.475) {0.04};
+  \node[font=\scriptsize, text=white, inner sep=0pt] at (5.325,4.475) {0.69};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (6.075,4.475) {0.05};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (6.825,4.475) {0.03};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (7.575,4.475) {0.04};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (8.325,4.475) {0.15};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (4.575,3.725) {0.11};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (5.325,3.725) {0.09};
+  \node[font=\scriptsize, text=white, inner sep=0pt] at (6.075,3.725) {0.52};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (6.825,3.725) {0.08};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (7.575,3.725) {0.12};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (8.325,3.725) {0.09};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (4.575,2.975) {0.03};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (5.325,2.975) {0.02};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (6.075,2.975) {0.03};
+  \node[font=\scriptsize, text=white, inner sep=0pt] at (6.825,2.975) {0.87};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (7.575,2.975) {0.03};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (8.325,2.975) {0.02};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (4.575,2.225) {0.36};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (5.325,2.225) {0.06};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (6.075,2.225) {0.10};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (6.825,2.225) {0.07};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (7.575,2.225) {0.37};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (8.325,2.225) {0.05};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (4.575,1.475) {0.08};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (5.325,1.475) {0.38};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (6.075,1.475) {0.13};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (6.825,1.475) {0.07};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (7.575,1.475) {0.09};
+  \node[font=\scriptsize, text=Ink, inner sep=0pt] at (8.325,1.475) {0.25};
+  \draw[Orange, line width=1.8pt] (4.95,1.1) rectangle (5.7,1.85);
+  \node[anchor=east, font=\small, align=center, inner sep=2pt] (hm1-r0) at (4.14,5.225) {the};
+  \node[anchor=east, font=\small, align=center, inner sep=2pt] (hm1-r1) at (4.14,4.475) {cat};
+  \node[anchor=east, font=\small, align=center, inner sep=2pt] (hm1-r2) at (4.14,3.725) {sat};
+  \node[anchor=east, font=\small, align=center, inner sep=2pt] (hm1-r3) at (4.14,2.975) {on};
+  \node[anchor=east, font=\small, align=center, inner sep=2pt] (hm1-r4) at (4.14,2.225) {the};
+  \node[anchor=east, font=\small, align=center, inner sep=2pt] (hm1-r5) at (4.14,1.475) {mat};
+  \node[anchor=west, rotate=45, font=\small, align=center, inner sep=2pt] (hm1-c0) at (4.575,5.66) {the};
+  \node[anchor=west, rotate=45, font=\small, align=center, inner sep=2pt] (hm1-c1) at (5.325,5.66) {cat};
+  \node[anchor=west, rotate=45, font=\small, align=center, inner sep=2pt] (hm1-c2) at (6.075,5.66) {sat};
+  \node[anchor=west, rotate=45, font=\small, align=center, inner sep=2pt] (hm1-c3) at (6.825,5.66) {on};
+  \node[anchor=west, rotate=45, font=\small, align=center, inner sep=2pt] (hm1-c4) at (7.575,5.66) {the};
+  \node[anchor=west, rotate=45, font=\small, align=center, inner sep=2pt] (hm1-c5) at (8.325,5.66) {mat};
+  \node[anchor=north, font=\small, inner sep=4pt, align=center] at (6.45,1.05) {keys};
+  \node[fit=(hm1-r0)(hm1-r1)(hm1-r2)(hm1-r3)(hm1-r4)(hm1-r5), inner sep=0pt] (hm1-rows) {};
+  \node[anchor=south, rotate=90, font=\small, inner sep=4pt, align=center] at (hm1-rows.west |- 0,3.35) {queries};
+  \node[fit=(hm1-c0)(hm1-c1)(hm1-c2)(hm1-c3)(hm1-c4)(hm1-c5), inner sep=0pt] (hm1-cols) {};
+  \node[anchor=south, font=\small\bfseries, inner sep=4pt, align=center] at (6.45,0 |- hm1-cols.north) {Attention weights};
+  \fill[cFBFAFC] (9,1.1) rectangle (9.3,1.215);
+  \fill[cF8F7FA] (9,1.212) rectangle (9.3,1.328);
+  \fill[cF5F4F9] (9,1.325) rectangle (9.3,1.44);
+  \fill[cF3F1F7] (9,1.437) rectangle (9.3,1.553);
+  \fill[cF0EEF6] (9,1.55) rectangle (9.3,1.665);
+  \fill[cEDEBF4] (9,1.662) rectangle (9.3,1.778);
+  \fill[cE9E8F2] (9,1.775) rectangle (9.3,1.89);
+  \fill[cE4E3F0] (9,1.887) rectangle (9.3,2.003);
+  \fill[cE0E0EE] (9,2) rectangle (9.3,2.115);
+  \fill[cDCDCEC] (9,2.112) rectangle (9.3,2.228);
+  \fill[cD7D7E9] (9,2.225) rectangle (9.3,2.34);
+  \fill[cD1D2E7] (9,2.337) rectangle (9.3,2.453);
+  \fill[cCBCBE3] (9,2.45) rectangle (9.3,2.565);
+  \fill[cC5C6E1] (9,2.562) rectangle (9.3,2.678);
+  \fill[cBFC0DE] (9,2.675) rectangle (9.3,2.79);
+  \fill[cB9B9DA] (9,2.787) rectangle (9.3,2.903);
+  \fill[cB3B3D6] (9,2.9) rectangle (9.3,3.015);
+  \fill[cADABD2] (9,3.012) rectangle (9.3,3.128);
+  \fill[cA7A4CE] (9,3.125) rectangle (9.3,3.24);
+  \fill[cA19ECA] (9,3.237) rectangle (9.3,3.353);
+  \fill[c9B97C6] (9,3.35) rectangle (9.3,3.465);
+  \fill[c9591C4] (9,3.462) rectangle (9.3,3.578);
+  \fill[c8F8CC1] (9,3.575) rectangle (9.3,3.69);
+  \fill[c8986BE] (9,3.687) rectangle (9.3,3.803);
+  \fill[c8380BB] (9,3.8) rectangle (9.3,3.915);
+  \fill[c7D78B7] (9,3.912) rectangle (9.3,4.028);
+  \fill[c7970B3] (9,4.025) rectangle (9.3,4.14);
+  \fill[c7567AF] (9,4.137) rectangle (9.3,4.253);
+  \fill[c705EAA] (9,4.25) rectangle (9.3,4.365);
+  \fill[c6C55A5] (9,4.362) rectangle (9.3,4.478);
+  \fill[c684DA1] (9,4.475) rectangle (9.3,4.59);
+  \fill[c63449D] (9,4.587) rectangle (9.3,4.703);
+  \fill[c5F3C99] (9,4.7) rectangle (9.3,4.816);
+  \fill[c5A3395] (9,4.812) rectangle (9.3,4.928);
+  \fill[c562B91] (9,4.925) rectangle (9.3,5.04);
+  \fill[c52238D] (9,5.037) rectangle (9.3,5.153);
+  \fill[c4D1B89] (9,5.15) rectangle (9.3,5.265);
+  \fill[c4A1486] (9,5.262) rectangle (9.3,5.378);
+  \fill[c460C83] (9,5.375) rectangle (9.3,5.49);
+  \fill[c41047F] (9,5.487) rectangle (9.3,5.6);
+  \draw[Ink!60, line width=0.4pt] (9,1.1) rectangle (9.3,5.6);
+  \draw[Ink!60, line width=0.4pt] (9.3,2.329) -- (9.37,2.329);
+  \node[anchor=west, font=\scriptsize, inner sep=2pt] at (9.38,2.329) {0.25};
+  \draw[Ink!60, line width=0.4pt] (9.3,3.649) -- (9.37,3.649);
+  \node[anchor=west, font=\scriptsize, inner sep=2pt] at (9.38,3.649) {0.50};
+  \draw[Ink!60, line width=0.4pt] (9.3,4.968) -- (9.37,4.968);
+  \node[anchor=west, font=\scriptsize, inner sep=2pt] at (9.38,4.968) {0.75};
+\end{tikzpicture}
+\end{document}

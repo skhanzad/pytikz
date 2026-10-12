@@ -1,0 +1,54 @@
+\documentclass[tikz, border=6pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{lmodern}
+\usetikzlibrary{arrows.meta}
+\definecolor{Blue}{HTML}{3A76D8}
+\definecolor{Green}{HTML}{3BA55C}
+\definecolor{Orange}{HTML}{EE8133}
+\definecolor{Red}{HTML}{DF4B4B}
+\definecolor{Purple}{HTML}{8459D1}
+\definecolor{Ink}{HTML}{1F2937}
+\tikzset{
+  dot/.style={circle, fill, inner sep=0pt, minimum size=4.5pt},
+}
+\begin{document}
+\begin{tikzpicture}[color=Ink, line width=0.5pt, >={Latex[length=5pt, width=3.6pt]}, line join=round]
+  \draw[color=Blue!70, line width=0.8pt] (4,1.525) circle[radius=4.2808cm];
+  \draw[fill=Orange!6, draw=none] (0,0) -- (8,0) -- (1.5,5) -- cycle;
+  \draw[color=Green!60!black, line width=0.8pt, fill=Green!8] (2.5098,1.8673) circle[radius=1.8673cm];
+  \draw[line width=1.1pt] (0,0) -- (8,0) -- (1.5,5) -- cycle;
+  \draw[color=Red!60, dashed, line width=0.5pt] (0,0) -- (2.974,3.8662);
+  \draw[color=Red!60, line width=0.4pt] (2.8642,3.7235) -- (2.7216,3.8332) -- (2.8313,3.9759);
+  \draw[color=Red!60, dashed, line width=0.5pt] (8,0) -- (0.6606,2.2018);
+  \draw[color=Red!60, line width=0.4pt] (0.833,2.1501) -- (0.8847,2.3225) -- (0.7123,2.3742);
+  \draw[color=Red!60, dashed, line width=0.5pt] (1.5,5) -- (1.5,0);
+  \draw[color=Red!60, line width=0.4pt] (1.5,0.18) -- (1.68,0.18) -- (1.68,0);
+  \draw[color=Purple!50, line width=0.4pt] (0,0) -- (4.75,2.5);
+  \draw[color=Purple!50, line width=0.4pt] (8,0) -- (0.75,2.5);
+  \draw[color=Purple!50, line width=0.4pt] (1.5,5) -- (4,0);
+  \draw[color=Ink!80, line width=1pt, dashed] (5.4788,1.2736) -- (0.317,2.1511);
+  \fill[color=Orange!25] (0,0) -- (0.7,0) arc[start angle=0, end angle=73.3008, radius=0.7cm] -- cycle;
+  \draw (0.7,0) arc[start angle=0, end angle=73.3008, radius=0.7cm];
+  \node at (0.7862,0.585) {$\alpha$};
+  \fill[color=Orange!25] (8,0) -- (7.4452,0.4268)
+      arc[start angle=142.4314, end angle=180, radius=0.7cm] -- cycle;
+  \draw (7.4452,0.4268) arc[start angle=142.4314, end angle=180, radius=0.7cm];
+  \node at (7.0722,0.3156) {$\beta$};
+  \fill[color=Orange!25] (1.5,5) -- (1.3276,4.4253)
+      arc[start angle=253.3008, end angle=322.4314, radius=0.6cm] -- cycle;
+  \draw (1.3276,4.4253) arc[start angle=253.3008, end angle=322.4314, radius=0.6cm];
+  \node at (1.77,4.1624) {$\gamma$};
+  \node[dot, minimum size=3.5pt, label={below left:{$A$}}] at (0,0) {};
+  \node[dot, minimum size=3.5pt, label={below right:{$B$}}] at (8,0) {};
+  \node[dot, minimum size=3.5pt, label={above:{$C$}}] at (1.5,5) {};
+  \node[dot, fill=Blue, minimum size=3.8pt, label={[text=Blue]below right:{$O$}}] at (4,1.525) {};
+  \node[dot, fill=Purple, minimum size=3.8pt, label={[text=Purple]below right:{$G$}}] at (3.1667,1.6667) {};
+  \node[dot, fill=Red, minimum size=3.8pt, label={[text=Red]above right:{$H$}}] at (1.5,1.95) {};
+  \node[dot, fill=Green!60!black, minimum size=3.8pt, label={[text=Green!60!black]left:{$I$}}] at (2.5098,1.8673) {};
+  \node[anchor=south, font=\footnotesize, rotate=-9.648] at (5.4788,1.2736) {Euler line};
+  \node[anchor=north west, font=\footnotesize, text=Blue!80!black] at (6.1404,-2.1823) {circumcircle};
+  \node[font=\footnotesize, text=Green!50!black] at (2.5098,0.5229) {incircle};
+\end{tikzpicture}
+\end{document}

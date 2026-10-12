@@ -1,0 +1,319 @@
+\documentclass[tikz, border=6pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,bm}
+\usepackage[scaled=0.95]{helvet}
+\usetikzlibrary{arrows.meta}
+\definecolor{Blue}{HTML}{3A76D8}
+\definecolor{Green}{HTML}{3BA55C}
+\definecolor{Orange}{HTML}{EE8133}
+\definecolor{Ink}{HTML}{1F2937}
+\begin{document}
+\begin{tikzpicture}[color=Ink, execute at begin picture={\sffamily}, line width=0.6pt, >={Stealth[length=5.5pt, width=4pt, inset=1.2pt]}, line join=round]
+  % axes ax1
+  \begin{scope}
+    \clip (0,0) rectangle (7.5,6.5);
+    \begin{scope}
+      \clip (0,0) rectangle (7.5,6.5);
+      \fill[Blue!10, even odd rule] (0,0.888) -- (0,6.5) -- (3.373,6.5) -- (3.373,6.424) -- (3.411,6.387)
+          -- (3.411,6.198) -- (3.448,6.16) -- (3.448,5.933) -- (3.486,5.895) -- (3.486,5.706) --
+          (3.524,5.669) -- (3.524,5.442) -- (3.562,5.404) -- (3.562,5.215) -- (3.599,5.177) --
+          (3.599,4.951) -- (3.637,4.913) -- (3.637,4.724) -- (3.675,4.686) -- (3.675,4.459) --
+          (3.712,4.422) -- (3.712,4.195) -- (3.75,4.157) -- (3.75,3.968) -- (3.788,3.93) -- (3.788,3.741)
+          -- (3.693,3.647) -- (3.656,3.647) -- (3.543,3.533) -- (3.505,3.533) -- (3.392,3.42) --
+          (3.354,3.42) -- (3.241,3.307) -- (3.204,3.307) -- (3.09,3.193) -- (3.053,3.193) -- (2.94,3.08)
+          -- (2.902,3.08) -- (2.789,2.967) -- (2.751,2.967) -- (2.638,2.853) -- (2.601,2.853) --
+          (2.487,2.74) -- (2.45,2.74) -- (2.337,2.626) -- (2.299,2.626) -- (2.186,2.513) -- (2.148,2.513)
+          -- (1.997,2.362) -- (1.96,2.362) -- (1.847,2.249) -- (1.809,2.249) -- (1.696,2.135) --
+          (1.658,2.135) -- (1.545,2.022) -- (1.508,2.022) -- (1.394,1.908) -- (1.357,1.908) --
+          (1.244,1.795) -- (1.206,1.795) -- (1.093,1.682) -- (1.055,1.682) -- (0.942,1.568) --
+          (0.905,1.568) -- (0.791,1.455) -- (0.754,1.455) -- (0.641,1.342) -- (0.603,1.342) --
+          (0.49,1.228) -- (0.452,1.228) -- (0.339,1.115) -- (0.302,1.115) -- (0.188,1.001) --
+          (0.151,1.001) -- (0.038,0.888) -- cycle;
+      \fill[Orange!10, even odd rule] (7.5,1.984) -- (7.462,2.022) -- (7.425,2.022) -- (7.387,2.06) --
+          (7.349,2.06) -- (7.312,2.097) -- (7.274,2.097) -- (7.236,2.135) -- (7.198,2.135) --
+          (7.161,2.173) -- (7.085,2.173) -- (7.048,2.211) -- (7.01,2.211) -- (6.972,2.249) --
+          (6.935,2.249) -- (6.897,2.286) -- (6.859,2.286) -- (6.822,2.324) -- (6.784,2.324) --
+          (6.746,2.362) -- (6.709,2.362) -- (6.671,2.4) -- (6.633,2.4) -- (6.595,2.438) -- (6.558,2.438)
+          -- (6.52,2.475) -- (6.445,2.475) -- (6.407,2.513) -- (6.369,2.513) -- (6.332,2.551) --
+          (6.294,2.551) -- (6.256,2.589) -- (6.219,2.589) -- (6.181,2.626) -- (6.143,2.626) --
+          (6.106,2.664) -- (6.068,2.664) -- (6.03,2.702) -- (5.992,2.702) -- (5.955,2.74) -- (5.917,2.74)
+          -- (5.879,2.778) -- (5.804,2.778) -- (5.766,2.815) -- (5.729,2.815) -- (5.691,2.853) --
+          (5.653,2.853) -- (5.616,2.891) -- (5.578,2.891) -- (5.54,2.929) -- (5.503,2.929) --
+          (5.465,2.967) -- (5.427,2.967) -- (5.389,3.004) -- (5.352,3.004) -- (5.314,3.042) --
+          (5.276,3.042) -- (5.239,3.08) -- (5.163,3.08) -- (5.126,3.118) -- (5.088,3.118) -- (5.05,3.156)
+          -- (5.013,3.156) -- (4.975,3.193) -- (4.937,3.193) -- (4.899,3.231) -- (4.862,3.231) --
+          (4.824,3.269) -- (4.786,3.269) -- (4.749,3.307) -- (4.711,3.307) -- (4.673,3.344) --
+          (4.636,3.344) -- (4.598,3.382) -- (4.523,3.382) -- (4.485,3.42) -- (4.447,3.42) -- (4.41,3.458)
+          -- (4.372,3.458) -- (4.334,3.496) -- (4.296,3.496) -- (4.259,3.533) -- (4.221,3.533) --
+          (4.183,3.571) -- (4.146,3.571) -- (4.108,3.609) -- (4.07,3.609) -- (4.033,3.647) --
+          (3.995,3.647) -- (3.957,3.685) -- (3.92,3.685) -- (3.882,3.722) -- (3.807,3.722) --
+          (3.788,3.741) -- (3.788,3.93) -- (3.75,3.968) -- (3.75,4.157) -- (3.712,4.195) -- (3.712,4.422)
+          -- (3.675,4.459) -- (3.675,4.686) -- (3.637,4.724) -- (3.637,4.913) -- (3.599,4.951) --
+          (3.599,5.177) -- (3.562,5.215) -- (3.562,5.404) -- (3.524,5.442) -- (3.524,5.669) --
+          (3.486,5.706) -- (3.486,5.895) -- (3.448,5.933) -- (3.448,6.16) -- (3.411,6.198) --
+          (3.411,6.387) -- (3.373,6.424) -- (3.373,6.5) -- (7.5,6.5) -- cycle;
+      \fill[Green!10, even odd rule] (0,0) -- (0,0.888) -- (0.038,0.888) -- (0.151,1.001) -- (0.188,1.001)
+          -- (0.302,1.115) -- (0.339,1.115) -- (0.452,1.228) -- (0.49,1.228) -- (0.603,1.342) --
+          (0.641,1.342) -- (0.754,1.455) -- (0.791,1.455) -- (0.905,1.568) -- (0.942,1.568) --
+          (1.055,1.682) -- (1.093,1.682) -- (1.206,1.795) -- (1.244,1.795) -- (1.357,1.908) --
+          (1.394,1.908) -- (1.508,2.022) -- (1.545,2.022) -- (1.658,2.135) -- (1.696,2.135) --
+          (1.809,2.249) -- (1.847,2.249) -- (1.96,2.362) -- (1.997,2.362) -- (2.148,2.513) --
+          (2.186,2.513) -- (2.299,2.626) -- (2.337,2.626) -- (2.45,2.74) -- (2.487,2.74) -- (2.601,2.853)
+          -- (2.638,2.853) -- (2.751,2.967) -- (2.789,2.967) -- (2.902,3.08) -- (2.94,3.08) --
+          (3.053,3.193) -- (3.09,3.193) -- (3.204,3.307) -- (3.241,3.307) -- (3.354,3.42) -- (3.392,3.42)
+          -- (3.505,3.533) -- (3.543,3.533) -- (3.656,3.647) -- (3.693,3.647) -- (3.769,3.722) --
+          (3.882,3.722) -- (3.92,3.685) -- (3.957,3.685) -- (3.995,3.647) -- (4.033,3.647) -- (4.07,3.609)
+          -- (4.108,3.609) -- (4.146,3.571) -- (4.183,3.571) -- (4.221,3.533) -- (4.259,3.533) --
+          (4.296,3.496) -- (4.334,3.496) -- (4.372,3.458) -- (4.41,3.458) -- (4.447,3.42) -- (4.485,3.42)
+          -- (4.523,3.382) -- (4.598,3.382) -- (4.636,3.344) -- (4.673,3.344) -- (4.711,3.307) --
+          (4.749,3.307) -- (4.786,3.269) -- (4.824,3.269) -- (4.862,3.231) -- (4.899,3.231) --
+          (4.937,3.193) -- (4.975,3.193) -- (5.013,3.156) -- (5.05,3.156) -- (5.088,3.118) --
+          (5.126,3.118) -- (5.163,3.08) -- (5.239,3.08) -- (5.276,3.042) -- (5.314,3.042) -- (5.352,3.004)
+          -- (5.389,3.004) -- (5.427,2.967) -- (5.465,2.967) -- (5.503,2.929) -- (5.54,2.929) --
+          (5.578,2.891) -- (5.616,2.891) -- (5.653,2.853) -- (5.691,2.853) -- (5.729,2.815) --
+          (5.766,2.815) -- (5.804,2.778) -- (5.879,2.778) -- (5.917,2.74) -- (5.955,2.74) -- (5.992,2.702)
+          -- (6.03,2.702) -- (6.068,2.664) -- (6.106,2.664) -- (6.143,2.626) -- (6.181,2.626) --
+          (6.219,2.589) -- (6.256,2.589) -- (6.294,2.551) -- (6.332,2.551) -- (6.369,2.513) --
+          (6.407,2.513) -- (6.445,2.475) -- (6.52,2.475) -- (6.558,2.438) -- (6.595,2.438) -- (6.633,2.4)
+          -- (6.671,2.4) -- (6.709,2.362) -- (6.746,2.362) -- (6.784,2.324) -- (6.822,2.324) --
+          (6.859,2.286) -- (6.897,2.286) -- (6.935,2.249) -- (6.972,2.249) -- (7.01,2.211) --
+          (7.048,2.211) -- (7.085,2.173) -- (7.161,2.173) -- (7.198,2.135) -- (7.236,2.135) --
+          (7.274,2.097) -- (7.312,2.097) -- (7.349,2.06) -- (7.387,2.06) -- (7.425,2.022) -- (7.462,2.022)
+          -- (7.5,1.984) -- (7.5,0) -- cycle;
+    \end{scope}
+    \draw[Ink!35, line width=0.6pt] (0,0.888) -- (0.038,0.888) -- (0.151,1.001) -- (0.188,1.001) --
+        (0.302,1.115) -- (0.339,1.115) -- (0.452,1.228) -- (0.49,1.228) -- (0.603,1.342) --
+        (0.641,1.342) -- (0.754,1.455) -- (0.791,1.455) -- (0.905,1.568) -- (0.942,1.568) --
+        (1.055,1.682) -- (1.093,1.682) -- (1.206,1.795) -- (1.244,1.795) -- (1.357,1.908) --
+        (1.394,1.908) -- (1.508,2.022) -- (1.545,2.022) -- (1.658,2.135) -- (1.696,2.135) --
+        (1.809,2.249) -- (1.847,2.249) -- (1.96,2.362) -- (1.997,2.362) -- (2.148,2.513) --
+        (2.186,2.513) -- (2.299,2.626) -- (2.337,2.626) -- (2.45,2.74) -- (2.487,2.74) -- (2.601,2.853)
+        -- (2.638,2.853) -- (2.751,2.967) -- (2.789,2.967) -- (2.902,3.08) -- (2.94,3.08) --
+        (3.053,3.193) -- (3.09,3.193) -- (3.204,3.307) -- (3.241,3.307) -- (3.354,3.42) -- (3.392,3.42)
+        -- (3.505,3.533) -- (3.543,3.533) -- (3.656,3.647) -- (3.693,3.647) -- (3.788,3.741) --
+        (3.788,3.93) -- (3.75,3.968) -- (3.75,4.157) -- (3.712,4.195) -- (3.712,4.422) -- (3.675,4.459)
+        -- (3.675,4.686) -- (3.637,4.724) -- (3.637,4.913) -- (3.599,4.951) -- (3.599,5.177) --
+        (3.562,5.215) -- (3.562,5.404) -- (3.524,5.442) -- (3.524,5.669) -- (3.486,5.706) --
+        (3.486,5.895) -- (3.448,5.933) -- (3.448,6.16) -- (3.411,6.198) -- (3.411,6.387) --
+        (3.373,6.424) -- (3.373,6.5);
+    \draw[Ink!35, line width=0.6pt] (7.5,1.984) -- (7.462,2.022) -- (7.425,2.022) -- (7.387,2.06) --
+        (7.349,2.06) -- (7.312,2.097) -- (7.274,2.097) -- (7.236,2.135) -- (7.198,2.135) --
+        (7.161,2.173) -- (7.085,2.173) -- (7.048,2.211) -- (7.01,2.211) -- (6.972,2.249) --
+        (6.935,2.249) -- (6.897,2.286) -- (6.859,2.286) -- (6.822,2.324) -- (6.784,2.324) --
+        (6.746,2.362) -- (6.709,2.362) -- (6.671,2.4) -- (6.633,2.4) -- (6.595,2.438) -- (6.558,2.438)
+        -- (6.52,2.475) -- (6.445,2.475) -- (6.407,2.513) -- (6.369,2.513) -- (6.332,2.551) --
+        (6.294,2.551) -- (6.256,2.589) -- (6.219,2.589) -- (6.181,2.626) -- (6.143,2.626) --
+        (6.106,2.664) -- (6.068,2.664) -- (6.03,2.702) -- (5.992,2.702) -- (5.955,2.74) -- (5.917,2.74)
+        -- (5.879,2.778) -- (5.804,2.778) -- (5.766,2.815) -- (5.729,2.815) -- (5.691,2.853) --
+        (5.653,2.853) -- (5.616,2.891) -- (5.578,2.891) -- (5.54,2.929) -- (5.503,2.929) --
+        (5.465,2.967) -- (5.427,2.967) -- (5.389,3.004) -- (5.352,3.004) -- (5.314,3.042) --
+        (5.276,3.042) -- (5.239,3.08) -- (5.163,3.08) -- (5.126,3.118) -- (5.088,3.118) -- (5.05,3.156)
+        -- (5.013,3.156) -- (4.975,3.193) -- (4.937,3.193) -- (4.899,3.231) -- (4.862,3.231) --
+        (4.824,3.269) -- (4.786,3.269) -- (4.749,3.307) -- (4.711,3.307) -- (4.673,3.344) --
+        (4.636,3.344) -- (4.598,3.382) -- (4.523,3.382) -- (4.485,3.42) -- (4.447,3.42) -- (4.41,3.458)
+        -- (4.372,3.458) -- (4.334,3.496) -- (4.296,3.496) -- (4.259,3.533) -- (4.221,3.533) --
+        (4.183,3.571) -- (4.146,3.571) -- (4.108,3.609) -- (4.07,3.609) -- (4.033,3.647) --
+        (3.995,3.647) -- (3.957,3.685) -- (3.92,3.685) -- (3.882,3.722) -- (3.807,3.722) --
+        (3.788,3.741) -- (3.788,3.93) -- (3.75,3.968) -- (3.75,4.157) -- (3.712,4.195) -- (3.712,4.422)
+        -- (3.675,4.459) -- (3.675,4.686) -- (3.637,4.724) -- (3.637,4.913) -- (3.599,4.951) --
+        (3.599,5.177) -- (3.562,5.215) -- (3.562,5.404) -- (3.524,5.442) -- (3.524,5.669) --
+        (3.486,5.706) -- (3.486,5.895) -- (3.448,5.933) -- (3.448,6.16) -- (3.411,6.198) --
+        (3.411,6.387) -- (3.373,6.424) -- (3.373,6.5);
+    \draw[Ink!35, line width=0.6pt] (0,0.888) -- (0.038,0.888) -- (0.151,1.001) -- (0.188,1.001) --
+        (0.302,1.115) -- (0.339,1.115) -- (0.452,1.228) -- (0.49,1.228) -- (0.603,1.342) --
+        (0.641,1.342) -- (0.754,1.455) -- (0.791,1.455) -- (0.905,1.568) -- (0.942,1.568) --
+        (1.055,1.682) -- (1.093,1.682) -- (1.206,1.795) -- (1.244,1.795) -- (1.357,1.908) --
+        (1.394,1.908) -- (1.508,2.022) -- (1.545,2.022) -- (1.658,2.135) -- (1.696,2.135) --
+        (1.809,2.249) -- (1.847,2.249) -- (1.96,2.362) -- (1.997,2.362) -- (2.148,2.513) --
+        (2.186,2.513) -- (2.299,2.626) -- (2.337,2.626) -- (2.45,2.74) -- (2.487,2.74) -- (2.601,2.853)
+        -- (2.638,2.853) -- (2.751,2.967) -- (2.789,2.967) -- (2.902,3.08) -- (2.94,3.08) --
+        (3.053,3.193) -- (3.09,3.193) -- (3.204,3.307) -- (3.241,3.307) -- (3.354,3.42) -- (3.392,3.42)
+        -- (3.505,3.533) -- (3.543,3.533) -- (3.656,3.647) -- (3.693,3.647) -- (3.769,3.722) --
+        (3.882,3.722) -- (3.92,3.685) -- (3.957,3.685) -- (3.995,3.647) -- (4.033,3.647) -- (4.07,3.609)
+        -- (4.108,3.609) -- (4.146,3.571) -- (4.183,3.571) -- (4.221,3.533) -- (4.259,3.533) --
+        (4.296,3.496) -- (4.334,3.496) -- (4.372,3.458) -- (4.41,3.458) -- (4.447,3.42) -- (4.485,3.42)
+        -- (4.523,3.382) -- (4.598,3.382) -- (4.636,3.344) -- (4.673,3.344) -- (4.711,3.307) --
+        (4.749,3.307) -- (4.786,3.269) -- (4.824,3.269) -- (4.862,3.231) -- (4.899,3.231) --
+        (4.937,3.193) -- (4.975,3.193) -- (5.013,3.156) -- (5.05,3.156) -- (5.088,3.118) --
+        (5.126,3.118) -- (5.163,3.08) -- (5.239,3.08) -- (5.276,3.042) -- (5.314,3.042) -- (5.352,3.004)
+        -- (5.389,3.004) -- (5.427,2.967) -- (5.465,2.967) -- (5.503,2.929) -- (5.54,2.929) --
+        (5.578,2.891) -- (5.616,2.891) -- (5.653,2.853) -- (5.691,2.853) -- (5.729,2.815) --
+        (5.766,2.815) -- (5.804,2.778) -- (5.879,2.778) -- (5.917,2.74) -- (5.955,2.74) -- (5.992,2.702)
+        -- (6.03,2.702) -- (6.068,2.664) -- (6.106,2.664) -- (6.143,2.626) -- (6.181,2.626) --
+        (6.219,2.589) -- (6.256,2.589) -- (6.294,2.551) -- (6.332,2.551) -- (6.369,2.513) --
+        (6.407,2.513) -- (6.445,2.475) -- (6.52,2.475) -- (6.558,2.438) -- (6.595,2.438) -- (6.633,2.4)
+        -- (6.671,2.4) -- (6.709,2.362) -- (6.746,2.362) -- (6.784,2.324) -- (6.822,2.324) --
+        (6.859,2.286) -- (6.897,2.286) -- (6.935,2.249) -- (6.972,2.249) -- (7.01,2.211) --
+        (7.048,2.211) -- (7.085,2.173) -- (7.161,2.173) -- (7.198,2.135) -- (7.236,2.135) --
+        (7.274,2.097) -- (7.312,2.097) -- (7.349,2.06) -- (7.387,2.06) -- (7.425,2.022) -- (7.462,2.022)
+        -- (7.5,1.984);
+    \draw[dotted, color=Blue!60!black, line width=0.9pt] (3.214,3.162) -- (2.15,3.667) -- (2.011,4.21)
+        -- (1.95,4.345);
+    \draw[dotted, color=Orange!60!black, line width=0.9pt] (3.75,3.601) -- (4.533,5.033) --
+        (5.407,4.876) -- (5.389,4.851);
+    \draw[dotted, color=Green!60!black, line width=0.9pt] (4.286,2.986) -- (4.653,2.572) --
+        (3.998,1.844) -- (3.914,1.829);
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.207,4.068) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (1.702,4.269) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (0.792,4.259) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (1.462,6.289) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.095,4.191) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (1.801,4.01) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (1.352,4.169) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.244,4.256) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.52,4.278) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (1.978,5.274) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.281,4.103) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (1.858,4.701) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (3.087,4.238) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (1.823,4.964) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (1.45,4.225) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.476,4.723) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.017,4.774) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (0.323,4.975) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (1.407,3.439) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.125,4.792) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (1.706,3.777) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (1.979,4.362) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.78,4.819) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.077,5.027) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (1.845,3.863) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.303,4.724) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (1.84,3.945) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.097,2.968) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.365,4.672) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (1.013,4.427) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (1.405,4.824) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (0.784,3.87) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.376,5.052) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (0.712,4.108) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.155,4.044) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.887,3.712) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.17,3.793) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.78,4.38) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (1.748,3.411) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.94,4.822) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.402,5.042) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.167,4.027) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (1.5,3.935) circle[radius=2pt];
+    \filldraw[fill=Blue, draw=white, line width=0.4pt] (2.759,3.558) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.011,4.56) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.488,5.072) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (4.632,3.755) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.355,5.436) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.797,4.866) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.173,4.911) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.216,5.21) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (4.896,4.82) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.293,5.053) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.488,6.199) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (6.227,5.598) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (4.174,4.549) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.004,5.047) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (4.034,5.414) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.976,4) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (4.789,4.286) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.382,5.109) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (6.546,4.631) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.803,4.832) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (6.379,5.167) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (6.151,4.128) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.246,4.279) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (6.231,5.119) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.18,4.485) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.638,4.343) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (4.817,5.018) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (6.787,4.603) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.035,4.075) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (4.582,5.043) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.851,4.748) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.55,4.809) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.438,3.872) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.091,4.807) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (4.903,4.471) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (4.882,4.553) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.852,4.511) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.268,5.208) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.731,5.711) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (4.144,5.232) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.077,4.82) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.843,5.362) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.96,4.832) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (6.291,4.582) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.275,5.2) circle[radius=2pt];
+    \filldraw[fill=Orange, draw=white, line width=0.4pt] (5.037,5.977) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.149,2.933) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (4.52,2.999) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.913,1.538) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (4.026,2.176) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.588,1.974) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.919,2.679) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.544,2.354) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.555,1.208) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.516,1.077) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (4.014,2.346) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (4.024,2.113) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (4.876,1.911) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (4.042,1.6) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (2.995,2.191) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (2.909,2.129) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.92,2.4) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.889,1.287) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (4.136,1.437) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.824,1.781) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.85,1.649) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.445,1.649) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (2.688,1.667) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.233,2.396) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (4.666,0.643) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (4.013,1.685) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.321,2.06) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.661,0.748) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.774,1.672) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.99,1.054) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (4.286,2.177) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.264,1.381) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.882,1.434) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (4.941,1.876) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.342,1.307) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.895,3.068) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.825,1.83) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (4.227,1.734) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (5.252,1.453) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (4.36,1.848) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (4.289,1.085) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (4.955,1.687) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.948,1.223) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.505,2.079) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (4.501,2.187) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (4.63,2.165) circle[radius=2pt];
+    \filldraw[fill=Green, draw=white, line width=0.4pt] (3.945,2.234) circle[radius=2pt];
+    \fill[Blue!60!black] (3.214,3.162) circle[radius=1.1pt] (2.15,3.667) circle[radius=1.1pt]
+        (2.011,4.21) circle[radius=1.1pt] (1.95,4.345) circle[radius=1.1pt] (1.95,4.345)
+        circle[radius=1.1pt] (1.95,4.345) circle[radius=1.1pt] (1.95,4.345) circle[radius=1.1pt]
+        (1.95,4.345) circle[radius=1.1pt];
+    \filldraw[fill=Blue!70!black, draw=white, line width=0.4pt] (1.95,4.605) -- (1.887,4.431) -- (1.702,4.425) -- (1.849,4.312) -- (1.796,4.133) -- (1.95,4.238) -- (2.103,4.133) -- (2.051,4.312) -- (2.198,4.425) -- (2.012,4.431) -- cycle;
+    \fill[Orange!60!black] (3.75,3.601) circle[radius=1.1pt] (4.533,5.033) circle[radius=1.1pt]
+        (5.407,4.876) circle[radius=1.1pt] (5.389,4.851) circle[radius=1.1pt] (5.389,4.851)
+        circle[radius=1.1pt] (5.389,4.851) circle[radius=1.1pt] (5.389,4.851) circle[radius=1.1pt]
+        (5.389,4.851) circle[radius=1.1pt];
+    \filldraw[fill=Orange!70!black, draw=white, line width=0.4pt] (5.389,5.112) -- (5.327,4.937) -- (5.141,4.932) -- (5.288,4.818) -- (5.236,4.64) -- (5.389,4.745) -- (5.543,4.64) -- (5.49,4.818) -- (5.638,4.932) -- (5.452,4.937) -- cycle;
+    \fill[Green!60!black] (4.286,2.986) circle[radius=1.1pt] (4.653,2.572) circle[radius=1.1pt]
+        (3.998,1.844) circle[radius=1.1pt] (3.914,1.829) circle[radius=1.1pt] (3.914,1.829)
+        circle[radius=1.1pt] (3.914,1.829) circle[radius=1.1pt] (3.914,1.829) circle[radius=1.1pt]
+        (3.914,1.829) circle[radius=1.1pt];
+    \filldraw[fill=Green!70!black, draw=white, line width=0.4pt] (3.914,2.09) -- (3.852,1.915) -- (3.666,1.909) -- (3.813,1.796) -- (3.761,1.618) -- (3.914,1.722) -- (4.067,1.618) -- (4.015,1.796) -- (4.162,1.909) -- (3.977,1.915) -- cycle;
+  \end{scope}
+  \draw[Ink!80, line width=0.5pt] (0,0) rectangle (7.5,6.5);
+  \node[anchor=south, font=\small\bfseries, inner sep=4pt, align=center] at (3.75,6.55) {$k$-means, $k = 3$};
+  \node[anchor=south west, font=\footnotesize, inner sep=4pt, align=left, fill=white, draw=Ink!18, rounded corners=2pt, fill opacity=0.92, text opacity=1] at (0.12,0.12) {%
+    \begin{tabular}{@{}l@{\hspace{4pt}}l@{}}
+      \tikz[baseline=-0.6ex]{\filldraw[fill=Blue, draw=white, line width=0.4pt] (0.3,0) circle[radius=2pt];} & cluster 1 \\
+      \tikz[baseline=-0.6ex]{\filldraw[fill=Orange, draw=white, line width=0.4pt] (0.3,0) circle[radius=2pt];} & cluster 2 \\
+      \tikz[baseline=-0.6ex]{\filldraw[fill=Green, draw=white, line width=0.4pt] (0.3,0) circle[radius=2pt];} & cluster 3 \\
+      \tikz[baseline=-0.6ex]{\filldraw[fill=Ink, draw=white, line width=0.4pt] (0.3,0.19) -- (0.255,0.063) -- (0.12,0.059) -- (0.226,-0.024) -- (0.188,-0.154) -- (0.3,-0.077) -- (0.412,-0.154) -- (0.374,-0.024) -- (0.48,0.059) -- (0.345,0.063) -- cycle;} & centroid \\
+    \end{tabular}%
+  };
+\end{tikzpicture}
+\end{document}
