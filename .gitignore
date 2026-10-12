@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+# LaTeX by-products
+*.aux
+*.log
+*.out
+*.synctex.gz
+# figures written by running examples directly (python examples/ml/mlp.py)
+examples/*/*.pdf
+examples/*/*.png
+examples/*/*.tex

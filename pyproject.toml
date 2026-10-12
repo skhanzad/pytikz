@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pytikz"
+version = "0.1.0"
+description = "Write Python, get beautiful TikZ: diagrams for machine learning and mathematics."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.20"]
+keywords = ["tikz", "latex", "diagrams", "machine learning", "plotting", "pgf"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "Topic :: Text Processing :: Markup :: LaTeX",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+pytikz = "pytikz.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["pytikz*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["latex: needs a LaTeX installation (pdflatex)"]
