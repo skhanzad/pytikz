@@ -18,7 +18,7 @@ classifiers = [
 
 [project.optional-dependencies]
 png = ["pypdfium2>=4"]   # PNG output without poppler/Ghostscript
-dev = ["pytest>=7", "pypdfium2>=4"]
+dev = ["pytest>=7", "pypdfium2>=4", "pillow", "ruff>=0.17"]
 
 [project.scripts]
 pytikz = "pytikz.cli:main"
@@ -29,3 +29,14 @@ include = ["pytikz*"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 markers = ["latex: needs a LaTeX installation (pdflatex)"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+# pyflakes, pycodestyle errors and bugbear: correctness, not style
+select = ["E4", "E7", "E9", "F", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+# math notation in the examples: O (origin, circumcentre), I (incentre)
+"examples/**" = ["E741"]

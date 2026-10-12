@@ -180,16 +180,18 @@ def layered_layout(nodes: Sequence[Node], edges: Iterable[tuple[Node, Node]], *,
     for v in nodes:
         layers[layer[v]].append(v)
     order = {v: i for lay in layers for i, v in enumerate(lay)}
+
+    def barycentre(v: Node, neighbours: dict[Node, list[Node]]) -> float:
+        ns = [order[u] for u in neighbours[v] if u in order]
+        return sum(ns) / len(ns) if ns else order[v]
+
     for sweep in range(sweeps):
-        rng = range(1, n_layers) if sweep % 2 == 0 else range(n_layers - 2, -1, -1)
+        downward = sweep % 2 == 0
+        rng = range(1, n_layers) if downward else range(n_layers - 2, -1, -1)
+        neighbours = pred if downward else succ
         for li in rng:
-            neigh = pred if sweep % 2 == 0 else succ
-
-            def bary(v: Node) -> float:
-                ns = [order[u] for u in neigh[v] if u in order]
-                return sum(ns) / len(ns) if ns else order[v]
-
-            layers[li].sort(key=lambda v: (bary(v), order[v]))
+            keys = {v: (barycentre(v, neighbours), order[v]) for v in layers[li]}
+            layers[li].sort(key=keys.__getitem__)
             for i, v in enumerate(layers[li]):
                 order[v] = i
     pos: dict[Node, Point] = {}
@@ -197,7 +199,7 @@ def layered_layout(nodes: Sequence[Node], edges: Iterable[tuple[Node, Node]], *,
         for i, v in enumerate(lay):
             pos[v] = Point((i - (len(lay) - 1) / 2) * node_gap, -li * layer_gap)
     # nudge single-node layers towards the mean of their neighbours
-    for li, lay in enumerate(layers):
+    for lay in layers:
         if len(lay) == 1:
             v = lay[0]
             ns = [pos[u].x for u in pred[v] + succ[v]]

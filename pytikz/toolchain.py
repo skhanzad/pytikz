@@ -65,7 +65,7 @@ def config_path() -> Path:
 
 def load_config() -> dict:
     try:
-        data = json.loads(config_path().read_text())
+        data = json.loads(config_path().read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return {}
     return data if isinstance(data, dict) else {}
@@ -77,7 +77,7 @@ def save_config(**values: object) -> Path:
     data.update(values)
     path = config_path()
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, indent=2) + "\n")
+    path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
     return path
 
 

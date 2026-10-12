@@ -7,7 +7,7 @@ import pytikz as tz
 from pytikz import Point
 
 A = np.array([[1.5, 0.75], [0.25, 1.25]])
-vals, vecs = np.linalg.eig(A)
+vals, vecs = (part.real for part in np.linalg.eig(A))  # real eigenvalues; newer numpy returns complex
 S = 0.95          # cm per unit
 N = 4             # grid half-width
 

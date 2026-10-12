@@ -18,6 +18,7 @@ from pytikz import checks, compiler, installer, toolchain
 @pytest.fixture(autouse=True)
 def isolated(tmp_path, monkeypatch):
     monkeypatch.setenv("PYTIKZ_CONFIG", str(tmp_path / "config.json"))
+    monkeypatch.setenv("PYTIKZ_CACHE", str(tmp_path / "cache"))  # no cached PDFs: LaTeX must run
     monkeypatch.delenv("PYTIKZ_TEXBIN", raising=False)
     toolchain.clear_cache()
     yield
@@ -27,7 +28,7 @@ def isolated(tmp_path, monkeypatch):
 def fake_program(directory: Path, name: str) -> Path:
     directory.mkdir(parents=True, exist_ok=True)
     path = directory / name
-    path.write_text("#!/bin/sh\necho fake\n")
+    path.write_text("#!/bin/sh\necho fake\n", encoding="utf-8")
     path.chmod(0o755)
     return path
 
@@ -45,12 +46,13 @@ def test_configured_tex_is_preferred(tmp_path):
     toolchain.save_config(texbin=str(tmp_path / "chosen"))
     toolchain.clear_cache()
     assert toolchain.find_program("pdflatex") == str(exe)
-    assert json.loads(toolchain.config_path().read_text())["texbin"] == str(tmp_path / "chosen")
+    assert json.loads(toolchain.config_path().read_text(encoding="utf-8"))["texbin"] == str(tmp_path / "chosen")
 
 
 def test_programs_off_path_are_found_in_known_places(tmp_path, monkeypatch):
     monkeypatch.setattr(toolchain, "tinytex_dir", lambda: tmp_path / ".TinyTeX")
-    exe = fake_program(tmp_path / ".TinyTeX" / "bin" / "x86_64-linux", "pytikz-test-tool")
+    platform_dir = "windows" if toolchain.SYSTEM == "Windows" else "x86_64-linux"
+    exe = fake_program(tmp_path / ".TinyTeX" / "bin" / platform_dir, "pytikz-test-tool")
     toolchain.clear_cache()
     assert toolchain.find_program("pytikz-test-tool") == str(exe)
     assert toolchain.find_program("pytikz-surely-missing-tool") is None
@@ -185,7 +187,7 @@ def test_unsafe_archives_are_rejected(tmp_path, entries, links):
 def test_install_refuses_foreign_directories(tmp_path, monkeypatch):
     monkeypatch.setattr(installer.shutil, "which", lambda name: "/usr/bin/perl")
     (tmp_path / "taken").mkdir()
-    (tmp_path / "taken" / "notes.txt").write_text("mine")
+    (tmp_path / "taken" / "notes.txt").write_text("mine", encoding="utf-8")
     with pytest.raises(installer.SetupError, match="not a TeX installation"):
         installer.install_tinytex(tmp_path / "taken", file=io.StringIO())
 

@@ -356,10 +356,22 @@ into [`examples/output/`](examples/output) (PDF, PNG and the generated `.tex`).
 
 ```bash
 pip install -e ".[dev]"
-pytest                      # unit tests + compiling every example (needs pdflatex)
+ruff check .
+pytest                      # unit tests + compiling every example (needs LaTeX: pytikz setup)
 pytest -m "not latex"       # without LaTeX
 python examples/build_all.py
 ```
+
+GitHub Actions ([`.github/workflows/python-package.yml`](.github/workflows/python-package.yml))
+runs on every push and pull request:
+
+* **Lint**: `ruff check`.
+* **Tests**: the unit tests on Python 3.9 to 3.15 on Linux, and on macOS and Windows.
+* **Rendering**: on Linux, macOS and Windows, installs TeX with `pytikz setup`, runs
+  `pytikz doctor` and the full test suite (which compiles every example), and uploads the
+  rendered example gallery as an artifact.
+* **Build**: builds the sdist and wheel, checks them with `twine check --strict`, installs the
+  wheel in a clean environment and uploads the distributions as an artifact.
 
 Layout: `pytikz/` holds the core (`picture.py`, `container.py`, `elements.py`,
 `coords.py`, `options.py`, `color.py`, `theme.py`, `compiler.py`, `cli.py`) and the

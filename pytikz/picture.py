@@ -371,9 +371,9 @@ class Picture(Container):
         target = FilePath(path)
         target.parent.mkdir(parents=True, exist_ok=True)
         if target.suffix == ".tikz":
-            target.write_text(self.tikz())
+            target.write_text(self.tikz(), encoding="utf-8")
         else:
-            target.write_text(self.document())
+            target.write_text(self.document(), encoding="utf-8")
         return target
 
     def render(

@@ -159,14 +159,14 @@ class Color:
 
     # -- constructors -----------------------------------------------------------
     @classmethod
-    def from_hsv(cls, h: float, s: float, v: float, name: str | None = None) -> "Color":
+    def from_hsv(cls, hue: float, saturation: float, value: float, name: str | None = None) -> "Color":
         """Hue in degrees, saturation and value in [0, 1]."""
-        return cls(colorsys.hsv_to_rgb((h % 360) / 360.0, s, v), name=name)
+        return cls(colorsys.hsv_to_rgb((hue % 360) / 360.0, saturation, value), name=name)
 
     @classmethod
-    def from_hsl(cls, h: float, s: float, l: float, name: str | None = None) -> "Color":
+    def from_hsl(cls, hue: float, saturation: float, lightness: float, name: str | None = None) -> "Color":
         """Hue in degrees, saturation and lightness in [0, 1]."""
-        return cls(colorsys.hls_to_rgb((h % 360) / 360.0, l, s), name=name)
+        return cls(colorsys.hls_to_rgb((hue % 360) / 360.0, lightness, saturation), name=name)
 
     # -- xcolor mixing (keeps readable expressions) ---------------------------------
     def tint(self, percent: float) -> "Color":

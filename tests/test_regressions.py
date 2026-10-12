@@ -3,7 +3,6 @@ log axes, backgrounds, library detection, ...)."""
 
 from __future__ import annotations
 
-import shutil
 
 import numpy as np
 import pytest
@@ -11,7 +10,7 @@ import pytest
 import pytikz as tz
 from pytikz.picture import detect_libraries
 
-needs_latex = pytest.mark.skipif(shutil.which("pdflatex") is None, reason="pdflatex is not installed")
+needs_latex = pytest.mark.skipif(not tz.latex_available(), reason="pdflatex is not installed")
 
 
 def lines(pic):
@@ -265,6 +264,7 @@ def test_legend_avoids_bars():
 
 
 # ---------------------------------------------------------------- compile checks
+@pytest.mark.latex
 @needs_latex
 def test_previously_failing_inputs_compile(tmp_path, monkeypatch):
     monkeypatch.setenv("PYTIKZ_CACHE", str(tmp_path / "cache"))

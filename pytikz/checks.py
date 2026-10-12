@@ -57,7 +57,7 @@ class Check:
 def linux_distro() -> set[str]:
     """IDs of the Linux distribution and the ones it is like (``/etc/os-release``)."""
     try:
-        text = Path("/etc/os-release").read_text()
+        text = Path("/etc/os-release").read_text(encoding="utf-8", errors="replace")
     except OSError:
         return set()
     ids: set[str] = set()
@@ -73,7 +73,7 @@ def _pgf_version() -> tuple[int, ...] | None:
     if not path:
         return None
     try:
-        m = re.search(r"\\def\\pgfversion\{([\d.]+)", Path(path).read_text(errors="replace"))
+        m = re.search(r"\\def\\pgfversion\{([\d.]+)", Path(path).read_text(encoding="utf-8", errors="replace"))
     except OSError:
         return None
     return tuple(int(p) for p in m.group(1).split(".")) if m else None

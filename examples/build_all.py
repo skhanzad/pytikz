@@ -51,7 +51,7 @@ def main(filters: list[str]) -> int:
                 gallery += [f"### {stem}", "", f"[![{stem}]({stem}.png)]({stem}.pdf)", "",
                             f"Source: [`{source}`](../{source}) · LaTeX: [`{stem}.tex`]({stem}.tex)", ""]
     if not filters:
-        (OUT / "README.md").write_text("\n".join(gallery))
+        (OUT / "README.md").write_text("\n".join(gallery), encoding="utf-8")
     print(f"\n{len(failures)} failure(s)" if failures else "\nall examples rendered")
     return 1 if failures else 0
 
