@@ -1,5 +1,7 @@
 """Tests of the core: formatting, options, coordinates, colors, elements and pictures."""
 
+from __future__ import annotations
+
 import math
 
 import pytest

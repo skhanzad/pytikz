@@ -16,7 +16,15 @@ PDF/PNG/SVG)::
 
 from .color import Color, blend, hex_color, rgb
 from .colormaps import Colormap, get_colormap
-from .compiler import LatexNotFoundError, TikzCompileError, latex_available
+from .compiler import (
+    ConverterNotFoundError,
+    LatexNotFoundError,
+    TikzCompileError,
+    ToolNotFoundError,
+    latex_available,
+)
+from .checks import doctor
+from .installer import setup
 from .container import Scope
 from .coords import (
     ORIGIN,
@@ -114,7 +122,11 @@ __all__ = [
     "inch",
     "tex_escape",
     "TikzCompileError",
+    "ToolNotFoundError",
     "LatexNotFoundError",
+    "ConverterNotFoundError",
     "latex_available",
+    "doctor",
+    "setup",
     *_component_names,
 ]

@@ -5,6 +5,8 @@
     pytikz render examples/mlp.py -f pdf,png      # compile every picture
     pytikz tex examples/mlp.py                     # print the TikZ code
     pytikz watch examples/mlp.py -f png            # re-render on save
+    pytikz doctor                                  # check LaTeX and converters
+    pytikz setup                                   # install what is missing
 
 A script's pictures are all the :class:`~pytikz.Picture` objects it
 creates; module-level variable names are used for the output files
@@ -144,6 +146,20 @@ def _cmd_watch(args: argparse.Namespace) -> int:
         return 0
 
 
+def _cmd_doctor(args: argparse.Namespace) -> int:
+    from .checks import doctor
+
+    return 0 if doctor(args.engine, compile_test=not args.no_compile) else 1
+
+
+def _cmd_setup(args: argparse.Namespace) -> int:
+    from .installer import setup
+
+    ok = setup(yes=args.yes, engine=args.engine, tinytex=args.dir, add_to_path=not args.no_path,
+               png=not args.no_png)
+    return 0 if ok else 1
+
+
 def _parse_formats(text: str) -> list[str]:
     formats = [f.strip().lower().lstrip(".") for f in text.split(",") if f.strip()]
     bad = [f for f in formats if f not in FORMATS]
@@ -177,6 +193,19 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("script")
     output_options(p, "pdf,png")
     p.set_defaults(func=_cmd_watch)
+
+    p = sub.add_parser("doctor", help="check LaTeX, TeX packages and converters; explain how to fix problems")
+    p.add_argument("--engine", default="pdflatex", choices=["pdflatex", "lualatex", "xelatex"])
+    p.add_argument("--no-compile", action="store_true", help="skip the test compilation")
+    p.set_defaults(func=_cmd_doctor)
+
+    p = sub.add_parser("setup", help="install what is missing (TinyTeX if there is no LaTeX)")
+    p.add_argument("-y", "--yes", action="store_true", help="do not ask for confirmation")
+    p.add_argument("--dir", help="where to install TinyTeX (default: the standard TinyTeX location)")
+    p.add_argument("--no-path", action="store_true", help="do not add TinyTeX's programs to PATH")
+    p.add_argument("--no-png", action="store_true", help="do not install pypdfium2 for PNG output")
+    p.add_argument("--engine", default="pdflatex", choices=["pdflatex", "lualatex", "xelatex"])
+    p.set_defaults(func=_cmd_setup)
     return parser
 
 

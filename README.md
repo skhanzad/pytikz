@@ -26,12 +26,57 @@ architectures, plots, 3D surfaces, graphs, trees, commutative diagrams and geome
 ## Installation
 
 ```bash
-pip install -e .            # from this repository (needs Python >= 3.9 and numpy)
+pip install -e ".[png]"     # from this folder; Python 3.9+
+pytikz setup                # finds LaTeX, or installs it for you
 ```
 
-Compiling needs a TeX distribution with TikZ (TeX Live, MiKTeX or MacTeX) providing
-`pdflatex`; PNG/SVG output uses poppler's `pdftocairo` (or `pdftoppm`/ImageMagick). Without
-LaTeX you can still generate `.tex`/`.tikz` files and compile them elsewhere (e.g. Overleaf).
+That is all. `pytikz setup` checks what is installed, shows what it will do and asks
+before changing anything:
+
+* **No LaTeX?** It downloads [TinyTeX](https://yihui.org/tinytex/), a small self-contained TeX Live
+  (about a 55 MB download, ~220 MB installed), into your home directory together with the TeX packages pytikz
+  uses. No administrator rights needed, on Linux, macOS and Windows.
+* **LaTeX without TikZ or other packages?** It installs them with `tlmgr`. When your TeX
+  belongs to the system (e.g. installed with `apt`), it prints the command to run instead,
+  or installs a TinyTeX just for pytikz if you prefer.
+* **PNG export:** the `[png]` extra installs `pypdfium2`, so PNG works without poppler.
+
+Use `pytikz setup --yes` to skip the questions, `--dir PATH` to choose where TinyTeX goes and
+`--no-path` to leave your `PATH` alone. pytikz finds TeX on its own even when it is not on
+`PATH` (TinyTeX, MacTeX's `/Library/TeX/texbin`, TeX Live and MiKTeX default locations), which
+also helps Jupyter servers started from a GUI.
+
+Check everything at any time with `pytikz doctor`:
+
+```
+$ pytikz doctor
+  Python    3.11.7, numpy 1.26.4                                            ok
+  LaTeX     pdfTeX 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian)           ok
+  TikZ      PGF 3.1.10                                                      ok
+  packages  standalone class, xcolor, amsmath, amssymb, bm                  ok
+  fonts     Latin Modern fonts, helvet, Helvetica fonts                     ok
+  PNG       pdftocairo  (also: pdftoppm, ghostscript, mutool, imagemagick)  ok
+  SVG       pdftocairo  (also: dvisvgm, mutool)                             ok
+  test      compiled a small picture in 0.34 s                              ok
+
+Everything pytikz needs is installed.
+```
+
+When something is missing, `pytikz doctor` prints the exact fix for your system. If you
+prefer your package manager:
+
+| System | Command |
+|---|---|
+| Debian, Ubuntu | `sudo apt install texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-pictures texlive-fonts-recommended lmodern poppler-utils` |
+| Fedora | `sudo dnf install texlive-scheme-basic texlive-pgf texlive-standalone texlive-xcolor texlive-amsmath texlive-amsfonts texlive-tools texlive-lm texlive-psnfss texlive-helvetic poppler-utils` |
+| Arch | `sudo pacman -S --needed texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra texlive-pictures texlive-fontsrecommended poppler` |
+| macOS | `brew install --cask basictex && brew install poppler`, then `sudo tlmgr install pgf standalone lm psnfss helvetic` |
+| Windows | `winget install MiKTeX.MiKTeX` (MiKTeX fetches missing packages on first use) |
+
+From Python or Jupyter the same checks are `tz.doctor()` and `tz.setup()`. To get the
+`pytikz` command everywhere without touching a project environment, use
+`pipx install ".[png]"` or `uv tool install ".[png]"`. Without any LaTeX you can still write
+`.tex`/`.tikz` files and compile them elsewhere (e.g. on Overleaf).
 
 ## Quick start
 
@@ -293,13 +338,17 @@ into [`examples/output/`](examples/output) (PDF, PNG and the generated `.tex`).
 
 ## Troubleshooting
 
+* **"pdflatex was not found"** or a missing package: run `pytikz setup` (or `pytikz doctor`
+  to see what is wrong). To use a particular TeX installation, set `PYTIKZ_TEXBIN` to its
+  `bin` directory.
 * **LaTeX errors** are raised as `tz.TikzCompileError` showing the error and the lines
   around it in the generated document; `pic.document()` returns the full source.
 * **Missing TikZ library?** Most are detected automatically; add others with
   `pic.use_library("shadows")`. Extra packages: `pic.use_package("siunitx")`,
   `pic.add_preamble(r"\newcommand\R{\mathbb{R}}")`.
-* **Fonts.** Standalone renders use Latin Modern, with Helvetica for sans-serif themes. In
-  a paper, the document's fonts are used.
+* **Fonts.** Standalone renders use Latin Modern, with Helvetica for sans-serif themes
+  (falling back to the default fonts, with a warning, when those are not installed). In a
+  paper, the document's fonts are used.
 * **Cache.** Compiled results are cached in `~/.cache/pytikz` (`PYTIKZ_CACHE` overrides;
   `pic.render(..., cache=False)` bypasses it).
 

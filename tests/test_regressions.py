@@ -1,6 +1,8 @@
 """Regression tests for problems found in review (naming, colors, escaping,
 log axes, backgrounds, library detection, ...)."""
 
+from __future__ import annotations
+
 import shutil
 
 import numpy as np

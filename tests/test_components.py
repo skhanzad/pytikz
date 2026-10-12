@@ -1,5 +1,7 @@
 """Tests of the high-level components, layouts, ticks and contours."""
 
+from __future__ import annotations
+
 import math
 
 import numpy as np

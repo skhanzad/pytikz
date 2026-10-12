@@ -121,6 +121,9 @@ class Theme:
     palette: dict[str, str]
     font: str = r"\sffamily"
     preamble: tuple[str, ...] = ()
+    #: Font packages for standalone renders; dropped automatically when the
+    #: fonts are not installed.
+    font_packages: tuple[str, ...] = ()
     ink: str = "Ink"
     paper: str | None = None
     line_width: float = 0.6
@@ -250,7 +253,7 @@ register_theme(
         name="modern",
         palette=dict(MODERN_PALETTE),
         font=r"\sffamily",
-        preamble=(r"\usepackage[scaled=0.95]{helvet}",),
+        font_packages=(r"\usepackage[scaled=0.95]{helvet}",),
     )
 )
 
@@ -259,7 +262,6 @@ register_theme(
         name="paper",
         palette=dict(MODERN_PALETTE),
         font="",
-        preamble=(r"\usepackage{lmodern}",),
         line_width=0.5,
         fill_tint=12,
         arrow_tip="Latex[length=5pt, width=3.6pt]",
@@ -271,7 +273,7 @@ register_theme(
         name="dark",
         palette=dict(DARK_PALETTE),
         font=r"\sffamily",
-        preamble=(r"\usepackage[scaled=0.95]{helvet}",),
+        font_packages=(r"\usepackage[scaled=0.95]{helvet}",),
         paper="Paper",
         fill_tint=22,
         fill_base="Paper",
@@ -287,7 +289,6 @@ register_theme(
         name="mono",
         palette=dict(MONO_PALETTE),
         font="",
-        preamble=(r"\usepackage{lmodern}",),
         fill_tint=12,
         stroke_mix=100,
         cycle=("Ink", "Gray", "Ink!60", "Gray!60"),

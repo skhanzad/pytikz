@@ -1,5 +1,7 @@
 """End-to-end tests that run LaTeX (skipped when pdflatex is not installed)."""
 
+from __future__ import annotations
+
 import shutil
 from pathlib import Path
 

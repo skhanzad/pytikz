@@ -17,7 +17,8 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=7"]
+png = ["pypdfium2>=4"]   # PNG output without poppler/Ghostscript
+dev = ["pytest>=7", "pypdfium2>=4"]
 
 [project.scripts]
 pytikz = "pytikz.cli:main"

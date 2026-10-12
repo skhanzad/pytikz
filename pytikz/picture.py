@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+import warnings
 from dataclasses import dataclass
 from pathlib import Path as FilePath
 from typing import Any, Iterable
@@ -16,10 +17,13 @@ from .theme import Theme, get_theme
 
 __all__ = ["Picture", "detect_libraries"]
 
-#: Packages loaded in every standalone document.
+#: Packages loaded in every standalone document (Latin Modern only if installed).
 BASE_PACKAGES = (
-    r"\usepackage[T1]{fontenc}",
-    r"\usepackage{lmodern}",
+    r"\IfFileExists{lmodern.sty}{\usepackage[T1]{fontenc}\usepackage{lmodern}}{}",
+    r"\usepackage{amsmath,amssymb,bm}",
+)
+UNICODE_BASE_PACKAGES = (
+    r"\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}",
     r"\usepackage{amsmath,amssymb,bm}",
 )
 
@@ -330,16 +334,19 @@ class Picture(Container):
             r"\end{tikzpicture}",
         ]
 
-    def document(self) -> str:
-        """A complete standalone LaTeX document containing the picture."""
+    def document(self, *, fonts: bool = True) -> str:
+        """A complete standalone LaTeX document containing the picture.
+
+        ``fonts=False`` leaves out the theme's font packages (used
+        automatically when those fonts are not installed).
+        """
         built = self._build()
         border = f"{self.border:g}pt"
         lines = [rf"\documentclass[tikz, border={border}]{{standalone}}"]
         unicode_engine = self.engine in ("lualatex", "xelatex")
-        for line in BASE_PACKAGES:
-            if unicode_engine and "fontenc" in line:
-                continue
-            lines.append(line)
+        lines.extend(UNICODE_BASE_PACKAGES if unicode_engine else BASE_PACKAGES)
+        if fonts:
+            lines.extend(self.theme.font_packages)
         lines.extend(self.theme.preamble)
         for name, opts in built.packages:
             lines.append(rf"\usepackage[{opts}]{{{name}}}" if opts else rf"\usepackage{{{name}}}")
@@ -384,31 +391,54 @@ class Picture(Container):
         Raises :class:`~pytikz.TikzCompileError` with the relevant part of the
         LaTeX log if compilation fails.
         """
-        from .compiler import render_document
-
         target = FilePath(path)
         if target.suffix in (".tex", ".tikz"):
             return self.save(target)
-        return render_document(
-            self.document(),
-            target,
-            engine=engine or self.engine,
-            dpi=dpi,
-            transparent=transparent,
-            cache=cache,
+        fmt = target.suffix.lower().lstrip(".") or "pdf"
+        if not target.suffix:
+            target = target.with_suffix(".pdf")
+        data = self._compile(fmt, engine=engine, dpi=dpi, transparent=transparent, cache=cache)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(data)
+        return target
+
+    def _compile(self, fmt: str, *, engine: str | None = None, dpi: int = 300, transparent: bool = False,
+                 cache: bool = True) -> bytes:
+        """Compile to ``fmt``; retry without the theme fonts if they are missing."""
+        from .compiler import TikzCompileError, compile_to_bytes
+
+        kwargs = dict(engine=engine or self.engine, dpi=dpi, transparent=transparent, cache=cache)
+        try:
+            return compile_to_bytes(self.document(), fmt, **kwargs)  # type: ignore[arg-type]
+        except TikzCompileError as err:
+            if not (err.missing_fonts and self.theme.font_packages):
+                raise
+        warnings.warn(
+            f"the fonts of the {self.theme.name!r} theme are not installed, using the default "
+            "sans-serif font instead (install the TeX package 'helvetic', e.g. Debian/Ubuntu: "
+            "texlive-fonts-recommended, to get the intended look)",
+            stacklevel=3,
         )
+        return compile_to_bytes(self.document(fonts=False), fmt, **kwargs)  # type: ignore[arg-type]
 
     def to_svg(self) -> str:
         """The rendered picture as SVG text."""
-        from .compiler import compile_to_bytes
-
-        return compile_to_bytes(self.document(), "svg", engine=self.engine).decode("utf-8")
+        return self._compile("svg").decode("utf-8")
 
     def to_png(self, dpi: int = 200) -> bytes:
         """The rendered picture as PNG bytes."""
-        from .compiler import compile_to_bytes
+        return self._compile("png", dpi=dpi)
 
-        return compile_to_bytes(self.document(), "png", engine=self.engine, dpi=dpi)
+    def _repr_mimebundle_(self, include: Any = None, exclude: Any = None) -> dict[str, Any]:  # Jupyter
+        """SVG if possible, PNG otherwise, and a helpful message if LaTeX is missing."""
+        from .compiler import ConverterNotFoundError, TikzCompileError, ToolNotFoundError
 
-    def _repr_svg_(self) -> str:  # Jupyter
-        return self.to_svg()
+        try:
+            try:
+                return {"image/svg+xml": self.to_svg()}
+            except ConverterNotFoundError:
+                return {"image/png": self.to_png(dpi=150)}
+        except ToolNotFoundError as err:
+            return {"text/plain": f"{self!r}\n{err}"}
+        except TikzCompileError as err:
+            return {"text/plain": f"{self!r} could not be compiled:\n{err}"}

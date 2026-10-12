@@ -1,35 +1,61 @@
 """Compile LaTeX documents to PDF, PNG and SVG.
 
-Uses ``pdflatex`` (or ``lualatex``/``xelatex``) and poppler's ``pdftocairo``
-(falling back to ``pdftoppm``/``dvisvgm``). Results are cached by content hash
-in ``~/.cache/pytikz`` (override with ``PYTIKZ_CACHE``), so re-rendering an
-unchanged picture is instant.
+LaTeX (``pdflatex``, ``lualatex`` or ``xelatex``) is found on ``PATH`` or in
+the usual install locations (see :mod:`pytikz.toolchain`). PDFs are turned
+into PNG/SVG by whichever converter is available:
+
+* PNG: poppler (``pdftocairo``/``pdftoppm``), the ``pypdfium2`` Python package
+  (``pip install "pytikz[png]"``), Ghostscript, MuPDF or ImageMagick.
+* SVG: poppler (``pdftocairo``), ``dvisvgm`` (with Ghostscript) or MuPDF.
+
+Results are cached by content hash in ``~/.cache/pytikz`` (override with
+``PYTIKZ_CACHE``), so re-rendering an unchanged picture is instant. Run
+``pytikz doctor`` to see what is installed and ``pytikz setup`` to install
+what is missing.
 """
 
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import os
 import re
-import shutil
+import struct
 import subprocess
 import tempfile
+import zlib
 from pathlib import Path
+from typing import Callable
+
+from .toolchain import find_program, program_env
 
 __all__ = [
-    "TikzCompileError",
+    "ToolNotFoundError",
     "LatexNotFoundError",
+    "ConverterNotFoundError",
+    "TikzCompileError",
     "compile_pdf",
     "compile_to_bytes",
     "render_document",
     "pdf_to_png",
     "pdf_to_svg",
     "latex_available",
+    "converters",
 ]
 
+SETUP_HINT = "Run `pytikz doctor` to see what is missing and how to install it."
 
-class LatexNotFoundError(RuntimeError):
-    """A required program (LaTeX engine or converter) is not installed."""
+
+class ToolNotFoundError(RuntimeError):
+    """A required external program is not installed."""
+
+
+class LatexNotFoundError(ToolNotFoundError):
+    """No LaTeX engine was found."""
+
+
+class ConverterNotFoundError(ToolNotFoundError):
+    """No program to convert PDF to PNG or SVG was found."""
 
 
 class TikzCompileError(RuntimeError):
@@ -53,24 +79,21 @@ class TikzCompileError(RuntimeError):
                 text.append(f"  {marker}{n:5d} | {src[n - 1]}")
         return "\n".join(text)
 
-
-def _which(*names: str) -> str | None:
-    for name in names:
-        path = shutil.which(name)
-        if path:
-            return path
-    return None
+    @property
+    def missing_fonts(self) -> bool:
+        """True when LaTeX stopped because font metric files are missing."""
+        return "Metric (TFM) file not found" in self.log or "Metric (TFM) file not found" in self.message
 
 
 def latex_available(engine: str = "pdflatex") -> bool:
     """Whether ``engine`` is installed."""
-    return _which(engine) is not None
+    return find_program(engine) is not None
 
 
+# ---------------------------------------------------------------- cache
 def _cache_dir() -> Path:
     root = os.environ.get("PYTIKZ_CACHE")
-    path = Path(root) if root else Path.home() / ".cache" / "pytikz"
-    return path
+    return Path(root) if root else Path.home() / ".cache" / "pytikz"
 
 
 def _cache_get(key: str, suffix: str) -> bytes | None:
@@ -91,19 +114,16 @@ def _cache_put(key: str, suffix: str, data: bytes) -> None:
         pass  # caching is best effort
 
 
+# ---------------------------------------------------------------- LaTeX
 _FILE_LINE = re.compile(r"^(?:\./)?(?P<file>[^:\n]+?):(?P<line>\d+): (?P<msg>.*)$", re.M)
 
 
 def _parse_log(log: str, source: str, engine: str) -> TikzCompileError:
-    match = None
-    for m in _FILE_LINE.finditer(log):
-        match = m
-        break
+    match = next(_FILE_LINE.finditer(log), None)
     if match is not None:
         message = match.group("msg").strip()
         # Add the continuation of multi-line messages.
-        rest = log[match.end():].splitlines()[1:6]
-        for extra in rest:
+        for extra in log[match.end():].splitlines()[1:6]:
             if not extra.strip() or extra.startswith(("See the", "Type", "l.")):
                 break
             message += " " + extra.strip()
@@ -125,18 +145,21 @@ def compile_pdf(source: str, *, engine: str = "pdflatex", timeout: float = 120, 
         hit = _cache_get(key, ".pdf")
         if hit is not None:
             return hit
-    exe = _which(engine)
+    exe = find_program(engine)
     if exe is None:
         raise LatexNotFoundError(
-            f"{engine!r} was not found. Install a TeX distribution (TeX Live, MiKTeX or "
-            "MacTeX) with the TikZ (pgf) package, or save the .tex file and compile it elsewhere."
+            f"{engine} was not found. Run `pytikz setup` to install a small LaTeX distribution "
+            "(TinyTeX: a ~55 MB download, no admin rights needed), or `pytikz doctor` for the commands "
+            "to install one with your package manager. You can also save the .tex file "
+            "(pic.save('figure.tex')) and compile it elsewhere, e.g. on Overleaf."
         )
     with tempfile.TemporaryDirectory(prefix="pytikz-") as tmp:
         tex = Path(tmp) / "figure.tex"
         tex.write_text(source, encoding="utf-8")
         cmd = [exe, "-interaction=nonstopmode", "-halt-on-error", "-file-line-error", "figure.tex"]
+        env = program_env(exe)
         # keep TeX from wrapping log lines at 79 characters
-        env = {**os.environ, "max_print_line": "10000", "error_line": "254", "half_error_line": "238"}
+        env.update(max_print_line="10000", error_line="254", half_error_line="238")
         try:
             proc = subprocess.run(cmd, cwd=tmp, capture_output=True, timeout=timeout, env=env)
         except subprocess.TimeoutExpired:
@@ -159,59 +182,174 @@ def compile_pdf(source: str, *, engine: str = "pdflatex", timeout: float = 120, 
     return data
 
 
+# ---------------------------------------------------------------- PNG
+def _run(cmd: list[str], **kwargs: object) -> None:
+    subprocess.run(cmd, check=True, capture_output=True, env=program_env(cmd[0]), **kwargs)  # type: ignore[call-overload]
+
+
+def _encode_png(pixels: "object", dpi: int) -> bytes:
+    """Minimal PNG encoder for an (h, w, 3|4) uint8 array (RGB or RGBA)."""
+    import numpy as np
+
+    arr = np.ascontiguousarray(pixels, dtype=np.uint8)
+    height, width, channels = arr.shape
+    color_type = {3: 2, 4: 6}[channels]
+    rows = np.empty((height, width * channels + 1), dtype=np.uint8)
+    rows[:, 0] = 0  # filter type "none" for every row
+    rows[:, 1:] = arr.reshape(height, -1)
+
+    def chunk(tag: bytes, data: bytes) -> bytes:
+        return struct.pack(">I", len(data)) + tag + data + struct.pack(">I", zlib.crc32(tag + data) & 0xFFFFFFFF)
+
+    per_metre = round(dpi / 0.0254)
+    return (
+        b"\x89PNG\r\n\x1a\n"
+        + chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, color_type, 0, 0, 0))
+        + chunk(b"pHYs", struct.pack(">IIB", per_metre, per_metre, 1))
+        + chunk(b"IDAT", zlib.compress(rows.tobytes(), 9))
+        + chunk(b"IEND", b"")
+    )
+
+
+def _png_pdftocairo(src: Path, out: Path, dpi: int, transparent: bool) -> None:
+    cmd = [find_program("pdftocairo"), "-png", "-r", str(dpi), "-singlefile"]  # type: ignore[list-item]
+    if transparent:
+        cmd.append("-transp")
+    _run(cmd + [str(src), str(out.with_suffix(""))])
+
+
+def _png_pdftoppm(src: Path, out: Path, dpi: int, transparent: bool) -> None:
+    _run([find_program("pdftoppm"), "-png", "-r", str(dpi), "-singlefile",  # type: ignore[list-item]
+          str(src), str(out.with_suffix(""))])
+
+
+def _png_pdfium(src: Path, out: Path, dpi: int, transparent: bool) -> None:
+    import pypdfium2 as pdfium
+
+    document = pdfium.PdfDocument(str(src))
+    try:
+        fill = (0, 0, 0, 0) if transparent else (255, 255, 255, 255)
+        bitmap = document[0].render(scale=dpi / 72.0, fill_color=fill, rev_byteorder=True)
+        out.write_bytes(_encode_png(bitmap.to_numpy(), dpi))
+    finally:
+        document.close()
+
+
+def _gs() -> str | None:
+    return find_program("gs") or find_program("gswin64c") or find_program("gswin32c")
+
+
+def _png_ghostscript(src: Path, out: Path, dpi: int, transparent: bool) -> None:
+    device = "pngalpha" if transparent else "png16m"
+    _run([_gs(), "-q", "-dSAFER", "-dBATCH", "-dNOPAUSE", f"-sDEVICE={device}", f"-r{dpi}",  # type: ignore[list-item]
+          "-dTextAlphaBits=4", "-dGraphicsAlphaBits=4", "-dFirstPage=1", "-dLastPage=1",
+          f"-sOutputFile={out}", str(src)])
+
+
+def _png_mutool(src: Path, out: Path, dpi: int, transparent: bool) -> None:
+    _run([find_program("mutool"), "draw", "-q", "-r", str(dpi), "-c",  # type: ignore[list-item]
+          "rgba" if transparent else "rgb", "-o", str(out), str(src), "1"])
+
+
+def _png_magick(src: Path, out: Path, dpi: int, transparent: bool) -> None:
+    cmd = [find_program("magick") or find_program("convert"), "-density", str(dpi), f"{src}[0]"]
+    if not transparent:
+        cmd += ["-background", "white", "-alpha", "remove"]
+    _run(cmd + [str(out)])  # type: ignore[arg-type]
+
+
+def _has_pdfium() -> bool:
+    return importlib.util.find_spec("pypdfium2") is not None
+
+
+#: PNG converters in order of preference: (name, available?, convert, can do transparency)
+_PNG: list[tuple[str, Callable[[], bool], Callable[..., None], bool]] = [
+    ("pdftocairo", lambda: find_program("pdftocairo") is not None, _png_pdftocairo, True),
+    ("pdftoppm", lambda: find_program("pdftoppm") is not None, _png_pdftoppm, False),
+    ("pypdfium2", _has_pdfium, _png_pdfium, True),
+    ("ghostscript", lambda: _gs() is not None, _png_ghostscript, True),
+    ("mutool", lambda: find_program("mutool") is not None, _png_mutool, True),
+    ("imagemagick", lambda: (find_program("magick") or find_program("convert")) is not None, _png_magick, True),
+]
+
+
 def pdf_to_png(pdf: bytes, *, dpi: int = 300, transparent: bool = False) -> bytes:
-    """Rasterise the first page of a PDF."""
+    """Rasterise the first page of a PDF with the first converter that works."""
+    errors = []
     with tempfile.TemporaryDirectory(prefix="pytikz-") as tmp:
         src = Path(tmp) / "in.pdf"
         src.write_bytes(pdf)
-        out = Path(tmp) / "out"
-        cairo = _which("pdftocairo")
-        if cairo:
-            cmd = [cairo, "-png", "-r", str(dpi), "-singlefile"]
-            if transparent:
-                cmd.append("-transp")
-            subprocess.run(cmd + [str(src), str(out)], check=True, capture_output=True)
-            return (Path(tmp) / "out.png").read_bytes()
-        ppm = _which("pdftoppm")
-        if ppm and not transparent:
-            subprocess.run(
-                [ppm, "-png", "-r", str(dpi), "-singlefile", str(src), str(out)],
-                check=True,
-                capture_output=True,
-            )
-            return (Path(tmp) / "out.png").read_bytes()
-        magick = _which("magick", "convert")
-        if magick:
-            target = Path(tmp) / "out.png"
-            cmd = [magick, "-density", str(dpi), f"{src}[0]"]
-            if not transparent:
-                cmd += ["-background", "white", "-alpha", "remove"]
-            subprocess.run(cmd + [str(target)], check=True, capture_output=True)
-            return target.read_bytes()
-    raise LatexNotFoundError("PNG output needs pdftocairo/pdftoppm (poppler) or ImageMagick")
+        out = Path(tmp) / "out.png"
+        for name, available, convert, alpha in _PNG:
+            if (transparent and not alpha) or not available():
+                continue
+            try:
+                convert(src, out, dpi, transparent)
+                return out.read_bytes()
+            except (OSError, subprocess.SubprocessError, ImportError, RuntimeError) as err:
+                errors.append(f"{name}: {err}")
+    detail = f" (tried: {'; '.join(errors)})" if errors else ""
+    raise ConverterNotFoundError(
+        "No working PDF-to-PNG converter was found" + detail + ". The easiest fix is "
+        '`pip install "pytikz[png]"` (installs pypdfium2); poppler, Ghostscript, MuPDF or '
+        "ImageMagick also work. " + SETUP_HINT
+    )
+
+
+# ---------------------------------------------------------------- SVG
+def _svg_pdftocairo(src: Path, out: Path) -> None:
+    _run([find_program("pdftocairo"), "-svg", str(src), str(out)])  # type: ignore[list-item]
+
+
+def _svg_dvisvgm(src: Path, out: Path) -> None:
+    _run([find_program("dvisvgm"), "--pdf", "--no-fonts", "--exact-bbox", "-o", str(out), str(src)])  # type: ignore[list-item]
+
+
+def _svg_mutool(src: Path, out: Path) -> None:
+    _run([find_program("mutool"), "draw", "-q", "-F", "svg", "-o", str(out), str(src), "1"])  # type: ignore[list-item]
+
+
+_SVG: list[tuple[str, Callable[[], bool], Callable[[Path, Path], None]]] = [
+    ("pdftocairo", lambda: find_program("pdftocairo") is not None, _svg_pdftocairo),
+    ("dvisvgm", lambda: find_program("dvisvgm") is not None and _gs() is not None, _svg_dvisvgm),
+    ("mutool", lambda: find_program("mutool") is not None, _svg_mutool),
+]
 
 
 def pdf_to_svg(pdf: bytes) -> bytes:
-    """Convert the first page of a PDF to SVG."""
+    """Convert the first page of a PDF to SVG with the first converter that works."""
+    errors = []
     with tempfile.TemporaryDirectory(prefix="pytikz-") as tmp:
         src = Path(tmp) / "in.pdf"
         src.write_bytes(pdf)
-        target = Path(tmp) / "out.svg"
-        cairo = _which("pdftocairo")
-        if cairo:
-            subprocess.run([cairo, "-svg", str(src), str(target)], check=True, capture_output=True)
-            return target.read_bytes()
-        dvisvgm = _which("dvisvgm")
-        if dvisvgm:
-            subprocess.run(
-                [dvisvgm, "--pdf", "--no-fonts", "-o", str(target), str(src)],
-                check=True,
-                capture_output=True,
-            )
-            return target.read_bytes()
-    raise LatexNotFoundError("SVG output needs pdftocairo (poppler) or dvisvgm")
+        out = Path(tmp) / "out.svg"
+        for name, available, convert in _SVG:
+            if not available():
+                continue
+            try:
+                convert(src, out)
+                data = out.read_bytes()
+                if b"<svg" in data[:2000]:
+                    return data
+                errors.append(f"{name}: produced no SVG")
+            except (OSError, subprocess.SubprocessError) as err:
+                errors.append(f"{name}: {err}")
+    detail = f" (tried: {'; '.join(errors)})" if errors else ""
+    raise ConverterNotFoundError(
+        "SVG output needs poppler (pdftocairo), dvisvgm with Ghostscript, or MuPDF (mutool)"
+        + detail + ". " + SETUP_HINT
+    )
 
 
+def converters() -> dict[str, list[str]]:
+    """Names of the available PNG and SVG converters, best first."""
+    return {
+        "png": [name for name, available, _, _ in _PNG if available()],
+        "svg": [name for name, available, _ in _SVG if available()],
+    }
+
+
+# ---------------------------------------------------------------- public API
 def compile_to_bytes(
     source: str,
     fmt: str = "pdf",
@@ -223,6 +361,8 @@ def compile_to_bytes(
 ) -> bytes:
     """Compile ``source`` and return the output in format ``fmt``."""
     fmt = fmt.lower().lstrip(".")
+    if fmt not in ("pdf", "png", "svg"):
+        raise ValueError(f"unsupported output format {fmt!r}; use pdf, png or svg")
     pdf = compile_pdf(source, engine=engine, cache=cache)
     if fmt == "pdf":
         return pdf
@@ -232,12 +372,7 @@ def compile_to_bytes(
         hit = _cache_get(key, suffix)
         if hit is not None:
             return hit
-    if fmt == "png":
-        data = pdf_to_png(pdf, dpi=dpi, transparent=transparent)
-    elif fmt == "svg":
-        data = pdf_to_svg(pdf)
-    else:
-        raise ValueError(f"unsupported output format {fmt!r}; use pdf, png or svg")
+    data = pdf_to_png(pdf, dpi=dpi, transparent=transparent) if fmt == "png" else pdf_to_svg(pdf)
     if cache:
         _cache_put(key, suffix, data)
     return data
